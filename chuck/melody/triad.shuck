@@ -1,4 +1,4 @@
-patchesDirectory = /home/wolfi/prj/sound/chuck/exploring-sound-design/chuck/melody
+patchesDirectory = .
 frameWidth = 800
 frameHeight = 300
 color = ffdd3c

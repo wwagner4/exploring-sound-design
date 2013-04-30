@@ -1,14 +1,13 @@
-patchesDirectory = /home/wolfi/prj/sound/chuck/exploring-sound-design/chuck/melody
+patchesDirectory = .
 frameWidth = 1200
 frameHeight = 500
 color = 6677ff
 
 start_dim a "patches" [
-  ("bar1" "bar1" _ speed)
+  ("melody" "melody" _ speed)
 ]
  
 dim speed "BPM" [
-  ("12" "12" _ dur)
   ("25" "25" _ dur)
   ("50" "50" _ dur)
   ("100" "100" _ dur)
