@@ -1,0 +1,16 @@
+patchesDirectory = /home/wolfi/prj/sound/chuck/exploring-sound-design/chuck/melody
+frameWidth = 800
+frameHeight = 300
+color = ffdd3c
+start_dim a "patches" [
+	("triad" "triads" _ speed)
+]
+ 
+dim speed "speed" [
+  ("16" "#" 80 _)
+  ("8" "##" 40 _)
+  ("4" "###" 20 _)
+  ("2" "####" 10 _)
+  ("1" "#####" 5 _)
+  ]
+

@@ -16,23 +16,25 @@ if (me.args() > 1) {
 1::second => dur oneSec;
 oneSec * dura => dur durb;
 
+2 => int base; // Bases
+if (me.args() > 2) {
+   Std.atoi(me.arg(2)) => base;
+}
 
-<<<"start >>> bpm", bpm, "dura", dura, "s">>>;
-
-
-
-
-
+<<<"start >>> bpm", bpm, "dura", dura, "s", base, "base">>>;
 
 [ 0, 4, 9] @=> int hi[];
-//[ 36, 41, 48, 53, 55] @=> int bases[];
-//[ 36, 41, 48, 48, 48, 48, 53, 55] @=> int bases[];
-//[ 36, 41] @=> int bases[];
-[ 48, 53, 55] @=> int bases[];
 
+[[ 36, 38, 40],
+[ 40, 42, 50, 52],
+[ 48, 50, 59, 62],
+[ 66, 66, 68, 68],
+[ 70, 70, 73, 73, 77, 77, 77]] @=> int bbases[][];
+
+bbases[base] @=> int bases[];
 
 fun void pitch(int midi) {
-  TriOsc s => ADSR e => dac;
+  SinOsc s => ADSR e => dac;
   e.set( 5::ms, 300::ms, .5, 2::T );
   0.1 => s.gain;
   Math.random2f(0.0, 1.0) => float r1;
