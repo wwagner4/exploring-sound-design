@@ -1,0 +1,29 @@
+patchesDirectory = .
+frameWidth = 400
+frameHeight = 200
+color = 98c5ab
+
+start_dim "patches" [
+  ("demo" "demo" 2 dur)
+]
+ 
+dim dur "duration" [
+  ("5" "5s" 5 _)
+  ("10" "10s" 10 _)
+  ("20" "20s" 20 _)
+  ("60" "1min" 60 _)
+  ("120" "2min" 120 _)
+]
+ 
+dim speed "BPM" [
+  ("50" "50" _ dur)
+  ("100" "100" _ dur)
+  ("200" "200" _ dur)
+  ("400" "400" _ dur)]
+
+dim pitch "" [
+  ("0" "L+" _ _)
+  ("1" "L" _ _)
+  ("2" "M" _ _)
+  ("3" "H" _ _)
+  ("4" "H+" _ _)]
