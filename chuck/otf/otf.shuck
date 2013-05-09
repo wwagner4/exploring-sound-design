@@ -1,0 +1,23 @@
+patchesDirectory = .
+frameWidth = 600
+frameHeight = 300
+color = 9f5dd2
+
+start_dim "" [
+  ("otf_01" "bum bum" 10 dur)
+  ("otf_02" "tak tak" 10 dur)
+  ("otf_07" "rrrrrrr" 10 dur)
+  ("otf_03" "shell" 10 dur)
+  ("otf_04" "snear" 10 dur)
+  ("otf_05" "electronic" 10 dur)
+  ("otf_06" "psychodelic" 10 dur)
+]
+
+dim dur "dur" [
+  ("5" "5s" 5 _)
+  ("10" "10s" 10 _)
+  ("30" "30s" 30 _)
+  ("60" "1min" 60 _)
+  ("120" "2min" 120 _)
+]
+
