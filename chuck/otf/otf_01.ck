@@ -29,7 +29,7 @@ SndBuf buf => Gain g => dac;
 // read in the file
 me.sourceDir() + "/data/kick.wav" => buf.read;
 // set the gain
-.5 => g.gain;
+.1 => g.gain;
 
 // time loop
 now => time startTime;
