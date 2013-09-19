@@ -1,39 +1,15 @@
-frameWidth = 400
-frameHeight = 600
-color = 98c5ab
+description: Demonstration of BandedWG unit generator
 
-start_dim "patches" [
-  ("demo" "demo" 2 dur)
-]
- 
-dim dur "duration" [
-  ("2" "2s" 2 midiNr)
-  ("5" "5s" 5 midiNr)
-]
- 
-dim midiNr "pitch" [
-  ("32" "|" _ preset)
-  ("34" "||" _ preset)
-  ("37" "|||" _ preset)
-  ("41" "||||" _ preset)
-]
+color:#98c5ab
+width:400
+height:600
 
-dim preset "preset" [
-  ("1" "1" _ bowRate)
-  ("2" "2" _ bowRate)
-  ("3" "3" _ bowRate)
-]
 
-dim bowRate "rate" [
-  ("0.5" "0.5" _ bowPressure)
-]
-
-dim bowPressure "pressure" [
-  ("0.5" "0.5" _ strikePosition)
-]
-
-dim strikePosition "pos" [
-  ("0.1" "0.1" _ _)
-  ("0.5" "0.5" _ _)
-  ("0.9" "0.9" _ _)
-]
+'Demonstration of BandedWG unit generator. bp:bow pressure, sp:strike position':demo
+	duration(2s:2:2|5s:5:5|10s:10:10)
+	pitch(25|29|34|37|41)
+	//preset(1|2|3)
+	//bowRate(0.5)
+	bp(0.4|0.7)
+	sp(0.1|0.5|0.9)
+	

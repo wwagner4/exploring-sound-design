@@ -1,32 +1,12 @@
-frameWidth = 1200
-frameHeight = 500
-color = 6677ff
+description: Combine triads of different speed and pitch 
 
-start_dim a "patches" [
-  ("melody" "melody" _ speed)
-]
- 
-dim speed "BPM" [
-  ("25" "25" _ dur)
-  ("50" "50" _ dur)
-  ("100" "100" _ dur)
-  ("200" "200" _ dur)
-  ("400" "400" _ dur)
-]
+color:#6677ff
+width:1200
+height:500
 
-dim dur "duration" [
-  ("5" "5s" 5 pitch)
-  ("10" "10s" 10 pitch)
-  ("20" "20s" 20 pitch)
-  ("30" "30s" 30 pitch)
-  ("60" "1min" 60 pitch)
-  ("120" "2min" 120 pitch)
-]
- 
-dim pitch "" [
-  ("0" "|" _ _)
-  ("1" "||" _ _)
-  ("2" "|||" _ _)
-  ("3" "||||" _ _)
-  ("4" "|||||" _ _)
-]
+
+'Combine triads of different speed and pitch ':melody
+	BPM(25|50|100|200|400)
+	dura(5s:5:5|10s:10:10|20s:20:20|30s:30s:30|60:1min:60|120:2min:120)
+	p(#:0|##:1|###:2|###:3|#####:4)
+	
