@@ -26,6 +26,7 @@ T - (now % T) => now;
 
 // construct the patch
 SndBuf buf => Gain g => JCRev r => dac;
+<<<"sourceDir", me.sourceDir()>>>;
 me.sourceDir() + "/data/snare.wav" => buf.read;
 .5 => g.gain;
 .05 => r.mix;

@@ -30,6 +30,7 @@ T => now;
 // construct the patch
 SndBuf buf => Gain g => dac;
 // read in from file
+<<<"sourceDir", me.sourceDir()>>>;
 me.sourceDir() + "/data/snare-hop.wav" => buf.read;
 // set the gain
 .4 => g.gain;
