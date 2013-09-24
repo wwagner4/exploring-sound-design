@@ -27,6 +27,7 @@ T - (now % T) => now;
 // construct the patch
 SndBuf buf => Gain g => dac;
 // read in the file
+<<<"sourceDir", me.sourceDir()>>>;
 me.sourceDir() + "/data/kick.wav" => buf.read;
 // set the gain
 .1 => g.gain;
