@@ -4,5 +4,5 @@ color:#ffdd3c
 width:400
 height:200
 
-combine triads:triad
-	speed(#:16:80|##:8:40|###:4:20|####:2:10|#####:1:5)
+combine triads slow # ... #### fast:triad
+	(#:16:80|##:8:40|###:4:20|####:2:10|#####:1:5)

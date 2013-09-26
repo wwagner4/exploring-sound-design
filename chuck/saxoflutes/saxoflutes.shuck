@@ -4,9 +4,6 @@ color:#eeeeaa
 width:700
 height:300
 
-instrument:inst
-	duration('':'':50)
-percussion fast:pfast
-	duration('':'':14)
-percussion slow:pslow
-	duration('':'':40)
+instrument:inst:50
+percussion fast:pfast:14
+percussion slow:pslow:40
