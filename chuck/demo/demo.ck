@@ -32,12 +32,13 @@ if (me.args() > 5) {
 
 
 
-<<<"patchDuration", patchDuration, "midiNr", midiNr, "preset", preset>>>;
-<<<"bowRate", bowRate, "bowPressure", bowPressure>>>;
+<<<"patchDuration:", patchDuration, "midiNr:", midiNr, "preset:", preset>>>;
+<<<"bowRate:", bowRate, "bowPressure:", bowPressure, "strikePosition:", strikePosition>>>;
 
 fun void bow(dur patchDuration, int midiNr, int preset, float bowRate, 
     float bowPressure, float strikePosition) {
 	BandedWG bwg => dac;
+	0.5 => bwg.gain;
 	preset => bwg.preset;
 	bowRate => bwg.bowRate;
 	bowPressure => bwg.bowPressure;

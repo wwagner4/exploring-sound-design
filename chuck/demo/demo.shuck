@@ -3,10 +3,10 @@ color:#98c5ab
 width:600
 height:600
 'Demonstration of BandedWG unit generator. bp:bow pressure, sp:strike position':demo
-	duration(2s:2:2|5s:5:5|10s:10:10)
+	duration(5s:5:5|10s:10:10|20s:20:20)
 	pitch(25|29|34|37|41)
-	//preset(1|2|3)
-	//bowRate(0.5)
-	bp(0.4|0.7)
-	sp(0.1|0.5|0.9)
+	preset(1|2|3)
+	bowRate(0.5)
+	bp(0.1)
+	sp(1)
 	
