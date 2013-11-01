@@ -1,4 +1,4 @@
-'Some AM':a
+a:'Some AM'
   freq(175|263|395|592|888|1000)  
-  mod freq(low:0.0001|medium:0.001|high:0.005)  
-  dur(1s:1:1|2s:2:2|4s:4:4|8s:8:8)
+  mod freq(0.0001:low|0.001:medium|0.005:high)  
+  dur(1:1s:1|2:2s:2|4:4s:4|8:8s:8)

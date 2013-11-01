@@ -4,6 +4,6 @@ color:#eeeeaa
 width:700
 height:300
 
-instrument:inst:50
-percussion fast:pfast:14
-percussion slow:pslow:40
+intd:instrument:50
+pfust:percussion fast:14
+pslow:percussion slow:40
