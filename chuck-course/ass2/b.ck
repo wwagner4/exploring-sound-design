@@ -1,7 +1,10 @@
 // Another tryout
 //[50, 52, 53, 55, 57, 59, 60, 62] @=> int ddorian[];
-TriOsc s => dac;
-TriOsc s2 => dac;
+TriOsc s => Pan2 p => dac;
+TriOsc s2 => Pan2 p2 => dac;
+
+-1 => p.pan;
+1 => p2.pan;
 
 Std.mtof(50) * 2 => float f2;
 f2 => s2.freq;
@@ -15,9 +18,9 @@ f2 => s2.freq;
 [50, 60, 55] @=> int bg[];
 [4, 1, 1, 1] @=> int dur[];
 
-now => time start;
+now + 10::second => time end;
 0 => int k;
-while (true) {
+while (now < end) {
   Math.random2(200, 400) => int du;
   bg[k%bg.cap()] => int b;
   <<< "b", b >>>;
