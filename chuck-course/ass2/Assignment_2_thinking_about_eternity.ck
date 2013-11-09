@@ -8,7 +8,7 @@ SawOsc s2 => Pan2 pan2 => dac;
 // Overall gainfactor for melody
 0.4 => float gf;
 // Overall gainfactor for background
-0.02 => float g2f;
+0.04 => float g2f;
 
 // Pan melody to the middle
 0 => pan.pan;
@@ -55,7 +55,7 @@ SawOsc s2 => Pan2 pan2 => dac;
 now + 30::second => time end;
 
 0 => int l;
-while (now < end) {
+while (true) {
   // Index of melody
   Math.random2(0, dd.cap()-1) => int j; 
   // Index for rhythm
