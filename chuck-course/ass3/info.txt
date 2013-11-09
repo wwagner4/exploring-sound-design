@@ -1,0 +1,31 @@
+fx_01: Tief, evt. als hintergrund  
+fx_02: Gong elektronisch. Stereo sehr stark
+fx_03: Chillig. Eintönig
+fx_04: Psychodelisch mit starkem Stereoeffekt
+fx_05: Hupe (Sirene) mit leichtem Stereo effekt
+
+clap_01: Klatschen. Leicht elektronisch
+
+click_01: Neutral. Banjoseite
+click_02: Tropfen
+click_03: Sehr hoch
+click_04: Sehr hoch aber dumpfer
+click_05: Dumpf + Holz
+
+cowbell_01: Kuhglocke
+
+hihat_01: Gedämpft 
+hihat_02: etwas weniger gedämpft
+hihat_03: Ungedämpft
+hihat_04: Sehr ungedämpft
+
+kick_01: Neutral
+kick_02: etwas mehr halll
+kick_03: etwas gedämpfter
+kick_04: elektronisch
+kick_05: elektronisch Starker nachhall 
+
+snare_01: Neutral
+snare_02: Leicht gedämpft
+snare_03: Hölzern
+
