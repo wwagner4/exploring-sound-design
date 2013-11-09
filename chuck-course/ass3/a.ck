@@ -23,19 +23,14 @@ dir + "/audio/" + "snare_02.wav",
 dir + "/audio/" + "snare_03.wav"
 ] @=> string files[];
 
-[
-dir + "/audio/" + "stereo_fx_01.wav",
-dir + "/audio/" + "stereo_fx_02.wav",
-dir + "/audio/" + "stereo_fx_03.wav",
-dir + "/audio/" + "stereo_fx_04.wav",
-dir + "/audio/" + "stereo_fx_05.wav"
-] @=> string sfiles[];
-
 SndBuf b => dac;
 
 for (0 => int i; i < files.cap(); i++) {
   files[i] => string f;
   <<< "file:", f >>>;
   f => b.read;
-  1000::ms => now;
+  for (0 => int i; i < 5; i++) {
+      1500::ms => now;
+      0 => b.pos;  
+  }  
 } 
