@@ -39,7 +39,14 @@ me.dir() + "/audio/stereo_fx_05.wav"
 // length must be meloLen
 [1,0,1,0,1,0], 
 [1,0,0,0,0,0]  
-] @=> int beats[][];
+] @=> int beats1[][];
+
+[
+// One pattern for each percussion, 
+// length must be meloLen
+[1,0,1,0,1,0], 
+[1,0,0,0,0,0]  
+] @=> int beats2[][];
 
 
 Gain master => dac;
@@ -79,7 +86,7 @@ fun void playNote(int rnote, int isMinor, int isUp) {
 	chord(note, isMinor, isUp);
 } 
 
-fun void setBeat(int k) {
+fun void setBeat(int k, int beats[][]) {
 	for (0 => int j; j < bufs.cap(); j++) {
 		if (beats[j][k] > 0) {
 			0 => bufs[j].pos;
@@ -110,12 +117,30 @@ fun void envelope(float dur, float maxGain, float attack) {
 	}
 }
 
+fun void melo(int k, int melo[], int beats[][], 
+		int isMajor, int isUp, float attack) {
+	melo[k] => int rnote;
+	playNote(rnote, isMajor, isUp);
+	setBeat(k, beats);
+	envelope(300, melo1Gain[k], attack);
+}
+
 0 => int i;
 while(true) {
-	i % meloLen => int k;
-	melo1[k] => int rnote;
-	playNote(rnote, 1, 0);
-	setBeat(k);
-	envelope(300, melo1Gain[k], 0.01);
-	i++;
+	for (0 => int j; j < 4; j++) {
+		melo(i % meloLen, melo1, beats1, 1, 0, 0.2);
+		i++;
+		melo(i % meloLen, melo1, beats1, 0, 0, 0.2);
+		i++;
+		melo(i % meloLen, melo1, beats1, 0, 0, 0.2);
+		i++;
+	}
+	for (0 => int j; j < 4; j++) {
+		melo(i % meloLen, melo1, beats1, 1, 0, 0.2);
+		i++;
+		melo(i % meloLen, melo1, beats1, 0, 0, 0.2);
+		i++;
+		melo(i % meloLen, melo1, beats1, 0, 0, 0.2);
+		i++;
+	}
 }
