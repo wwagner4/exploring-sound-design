@@ -66,7 +66,7 @@ me.dir() + "/audio/stereo_fx_05.wav"
 
 
 Gain master => dac;
-0.05 => master.gain;
+0.1 => master.gain;
 Gain mmaster => master;
 1.5 => mmaster.gain;
 TriOsc oscs[3];
