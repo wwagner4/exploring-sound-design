@@ -30,22 +30,28 @@ me.dir() + "/audio/stereo_fx_05.wav"
 ] @=> string files[];
 
 6 => int meloLen; 
-[  0,   1,   5,   5,   5,   4] @=> int   melo1[];
-[1.0, 0.1, 1.0, 0.1, 1.0, 1.0] @=> float melo1Gain[];
+[  0,   0,   0,   7,   6,   7] @=> int   melo1[];
+[1.0, 0.1, 0.1, 1.0, 0.1, 0.1] @=> float melo1Gain[];
+
+[  1,   1,   1,   6,   7,   6] @=> int   melo2[];
+[1.0, 0.1, 0.1, 1.0, 0.1, 0.1] @=> float melo2Gain[];
+
+[  5,   5,   5,   5,   5,   4] @=> int   melo3[];
+[0.1, 0.0, 0.1, 0.0, 0.1, 0.0] @=> float melo3Gain[];
 
 [1, 6] @=> int percussion[];
 [
 // One pattern for each percussion, 
 // length must be meloLen
-[1,0,1,0,1,0], 
+[1,0,1,1,0,0], 
 [1,0,0,0,0,0]  
 ] @=> int beats1[][];
 
 [
 // One pattern for each percussion, 
 // length must be meloLen
-[1,0,1,0,1,0], 
-[1,0,0,0,0,0]  
+[1,1,1,1,1,1], 
+[0,0,0,0,0,0]  
 ] @=> int beats2[][];
 
 
@@ -117,30 +123,42 @@ fun void envelope(float dur, float maxGain, float attack) {
 	}
 }
 
-fun void melo(int k, int melo[], int beats[][], 
+fun void melo(int k, int melo[], float meloGain[], int beats[][], 
 		int isMajor, int isUp, float attack) {
 	melo[k] => int rnote;
 	playNote(rnote, isMajor, isUp);
 	setBeat(k, beats);
-	envelope(300, melo1Gain[k], attack);
+	envelope(300, meloGain[k], attack);
 }
 
 0 => int i;
 while(true) {
-	for (0 => int j; j < 4; j++) {
-		melo(i % meloLen, melo1, beats1, 1, 0, 0.2);
+	<<< "", "a" >>>;
+	for (0 => int j; j < 8; j++) {
+		melo(i % meloLen, melo1, melo1Gain, beats1, 1, 0, 0.2);
 		i++;
-		melo(i % meloLen, melo1, beats1, 0, 0, 0.2);
-		i++;
-		melo(i % meloLen, melo1, beats1, 0, 0, 0.2);
+		melo(i % meloLen, melo1, melo1Gain, beats1, 0, 0, 0.2);
 		i++;
 	}
+	<<< "", "c" >>>;
 	for (0 => int j; j < 4; j++) {
-		melo(i % meloLen, melo1, beats1, 1, 0, 0.2);
+		melo(i % meloLen, melo3, melo3Gain, beats2, 0, 0, 0.01);
 		i++;
-		melo(i % meloLen, melo1, beats1, 0, 0, 0.2);
+		melo(i % meloLen, melo3, melo3Gain, beats2, 0, 1, 0.01);
 		i++;
-		melo(i % meloLen, melo1, beats1, 0, 0, 0.2);
+	}
+	<<< "", "b" >>>;
+	for (0 => int j; j < 8; j++) {
+		melo(i % meloLen, melo2, melo2Gain, beats1, 1, 1, 0.2);
+		i++;
+		melo(i % meloLen, melo2, melo2Gain, beats1, 1, 0, 0.2);
+		i++;
+	}
+	<<< "", "c" >>>;
+	for (0 => int j; j < 4; j++) {
+		melo(i % meloLen, melo3, melo3Gain, beats2, 0, 0, 0.01);
+		i++;
+		melo(i % meloLen, melo3, melo3Gain, beats2, 0, 1, 0.01);
 		i++;
 	}
 }
