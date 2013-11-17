@@ -29,14 +29,15 @@ me.dir() + "/audio/stereo_fx_04.wav",
 me.dir() + "/audio/stereo_fx_05.wav"
 ] @=> string files[];
 
-[0,0,5,1,5,6] @=> int melody[];
+6 => int meloLen; 
+[0  ,   0,   5,   5,   5,   7] @=> int   melo1[];
+[1.0, 1.0, 1.0, 0.1, 1.0, 1.0] @=> float melo1Gain[];
 
-[1, 7] @=> int drums[];
+[1, 6] @=> int percussion[];
 [
-[1,1,1,0,1,1], // One pattern for each drum
-[1,0,1,0,0,0]
+[1,0,1,0,1,0], // One pattern for each drum, length is meloLength
+[1,0,0,0,0,0]
 ] @=> int beats[][];
-6 => int beatLen; 
 
 
 Gain master => dac;
@@ -48,9 +49,9 @@ for (0 => int i; i < oscs.cap(); i++) {
 	oscs[i] => mmaster;
 }
 
-SndBuf bufs[drums.cap()];
-for (0 => int i; i < drums.cap(); i++) {
-	files[drums[i]] => string file;
+SndBuf bufs[percussion.cap()];
+for (0 => int i; i < percussion.cap(); i++) {
+	files[percussion[i]] => string file;
 	bufs[i].read(file);
 	bufs[i].samples() => bufs[i].pos;
 	bufs[i] => master;
@@ -70,15 +71,14 @@ fun void chord(int base, int isMinor, int isUp) {
 	}
 }
 
-fun void playNote(int i, int isMinor, int isUp) {
-	melody[i % melody.cap()] => int rnote;
+fun void playNote(int k, int isMinor, int isUp) {
+	melo1[k] => int rnote;
 	scale[rnote] => int note;
 	<<< "note", note >>>;
 	chord(note, isMinor, isUp);
 } 
 
-fun void setBeat(int i) {
-	i % beatLen => int k;
+fun void setBeat(int k) {
 	for (0 => int j; j < bufs.cap(); j++) {
 		if (beats[j][k] > 0) {
 			0 => bufs[j].pos;
@@ -92,8 +92,6 @@ fun void envelope(float dur, float maxGain, float attack) {
 	maxGain / dur / attack => float diffAttack;
 	- maxGain / dur / (1.0 - attack) => float diffDecay;
 	diffAttack => float diff;
-	<<< "diffAttack", diffAttack >>>;
-	<<< "diffDecay", diffDecay >>>;
 	while (now < end) {
 		for (0 => int i; i < oscs.cap(); i++) {
 			gain => oscs[i].gain;
@@ -113,9 +111,9 @@ fun void envelope(float dur, float maxGain, float attack) {
 
 0 => int i;
 while(true) {
-	playNote(i, 1, 0);
-	1.0 => float g;
-	setBeat(i);
-	envelope(500, 1.0, 0.1);
+	i % meloLen => int k;
+	playNote(k, 1, 0);
+	setBeat(k);
+	envelope(300, melo1Gain[k], 0.01);
 	i++;
 }
