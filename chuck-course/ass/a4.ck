@@ -30,20 +30,22 @@ me.dir() + "/audio/stereo_fx_05.wav"
 ] @=> string files[];
 
 6 => int meloLen; 
-[0  ,   0,   5,   5,   5,   7] @=> int   melo1[];
-[1.0, 1.0, 1.0, 0.1, 1.0, 1.0] @=> float melo1Gain[];
+[  0,   1,   5,   5,   5,   4] @=> int   melo1[];
+[1.0, 0.1, 1.0, 0.1, 1.0, 1.0] @=> float melo1Gain[];
 
 [1, 6] @=> int percussion[];
 [
-[1,0,1,0,1,0], // One pattern for each drum, length is meloLength
-[1,0,0,0,0,0]
+// One pattern for each percussion, 
+// length must be meloLen
+[1,0,1,0,1,0], 
+[1,0,0,0,0,0]  
 ] @=> int beats[][];
 
 
 Gain master => dac;
-0.5 => master.gain;
+0.1 => master.gain;
 Gain mmaster => master;
-0.1 => mmaster.gain;
+0.3 => mmaster.gain;
 TriOsc oscs[3];
 for (0 => int i; i < oscs.cap(); i++) {
 	oscs[i] => mmaster;
@@ -71,8 +73,7 @@ fun void chord(int base, int isMinor, int isUp) {
 	}
 }
 
-fun void playNote(int k, int isMinor, int isUp) {
-	melo1[k] => int rnote;
+fun void playNote(int rnote, int isMinor, int isUp) {
 	scale[rnote] => int note;
 	<<< "note", note >>>;
 	chord(note, isMinor, isUp);
@@ -112,7 +113,8 @@ fun void envelope(float dur, float maxGain, float attack) {
 0 => int i;
 while(true) {
 	i % meloLen => int k;
-	playNote(k, 1, 0);
+	melo1[k] => int rnote;
+	playNote(rnote, 1, 0);
 	setBeat(k);
 	envelope(300, melo1Gain[k], 0.01);
 	i++;
