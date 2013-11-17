@@ -29,36 +29,46 @@ me.dir() + "/audio/stereo_fx_04.wav",
 me.dir() + "/audio/stereo_fx_05.wav"
 ] @=> string files[];
 
-6 => int meloLen; 
-[  0,   0,   0,   7,   6,   7] @=> int   melo1[];
-[1.0, 0.1, 0.1, 1.0, 0.1, 0.1] @=> float melo1Gain[];
+8 => int meloLen; 
+[  0,   0,   0,   7,   6,   7,   1,   1] @=> int   melo1[];
+[1.0, 0.1, 0.1, 1.0, 0.1, 0.1, 0.1, 0.1] @=> float melo1Gain[];
 
-[  1,   1,   1,   6,   7,   6] @=> int   melo2[];
-[1.0, 0.1, 0.1, 1.0, 0.1, 0.1] @=> float melo2Gain[];
+[  1,   1,   1,   6,   7,   6,   6,   6] @=> int   melo2[];
+[1.0, 0.1, 0.1, 1.0, 0.1, 0.1, 0.1, 0.1] @=> float melo2Gain[];
 
-[  5,   5,   5,   5,   5,   4] @=> int   melo3[];
-[0.1, 0.0, 0.1, 0.0, 0.1, 0.0] @=> float melo3Gain[];
+[  5,   5,   5,   5,   5,   4,   4,   4] @=> int   melo3[];
+[0.1, 0.0, 0.1, 0.0, 0.1, 0.0, 0.1, 0.1] @=> float melo3Gain[];
 
-[1, 6] @=> int percussion[];
+[  0,   0,   0,   0,   3,   3,   3,   3] @=> int   melo4[];
+[0.1, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0] @=> float melo4Gain[];
+
+[  0,   0,   0,   0,   3,   3,   3,   3] @=> int   melo5[];
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] @=> float melo5Gain[];
+
+[1, 2, 3, 5] @=> int percussion[];
 [
 // One pattern for each percussion, 
 // length must be meloLen
-[1,0,1,1,0,0], 
-[1,0,0,0,0,0]  
+[1,0,0,0,1,0,0,0], 
+[1,1,0,0,1,0,0,0], 
+[1,0,1,0,1,0,0,0], 
+[1,0,0,1,0,1,1,1]  
 ] @=> int beats1[][];
 
 [
 // One pattern for each percussion, 
 // length must be meloLen
-[1,1,1,1,1,1], 
-[0,0,0,0,0,0]  
+[1,0,0,0,0,0,1,0], 
+[1,0,0,0,1,1,0,0], 
+[1,0,0,0,1,0,0,0], 
+[1,0,0,1,1,0,0,0]  
 ] @=> int beats2[][];
 
 
 Gain master => dac;
-0.1 => master.gain;
+0.05 => master.gain;
 Gain mmaster => master;
-0.3 => mmaster.gain;
+1.5 => mmaster.gain;
 TriOsc oscs[3];
 for (0 => int i; i < oscs.cap(); i++) {
 	oscs[i] => mmaster;
@@ -88,7 +98,6 @@ fun void chord(int base, int isMinor, int isUp) {
 
 fun void playNote(int rnote, int isMinor, int isUp) {
 	scale[rnote] => int note;
-	<<< "note", note >>>;
 	chord(note, isMinor, isUp);
 } 
 
@@ -131,34 +140,44 @@ fun void melo(int k, int melo[], float meloGain[], int beats[][],
 	envelope(300, meloGain[k], attack);
 }
 
-0 => int i;
-while(true) {
-	<<< "", "a" >>>;
-	for (0 => int j; j < 8; j++) {
-		melo(i % meloLen, melo1, melo1Gain, beats1, 1, 0, 0.2);
-		i++;
-		melo(i % meloLen, melo1, melo1Gain, beats1, 0, 0, 0.2);
-		i++;
-	}
-	<<< "", "c" >>>;
-	for (0 => int j; j < 4; j++) {
-		melo(i % meloLen, melo3, melo3Gain, beats2, 0, 0, 0.01);
-		i++;
-		melo(i % meloLen, melo3, melo3Gain, beats2, 0, 1, 0.01);
-		i++;
-	}
-	<<< "", "b" >>>;
-	for (0 => int j; j < 8; j++) {
-		melo(i % meloLen, melo2, melo2Gain, beats1, 1, 1, 0.2);
-		i++;
-		melo(i % meloLen, melo2, melo2Gain, beats1, 1, 0, 0.2);
-		i++;
-	}
-	<<< "", "c" >>>;
-	for (0 => int j; j < 4; j++) {
-		melo(i % meloLen, melo3, melo3Gain, beats2, 0, 0, 0.01);
-		i++;
-		melo(i % meloLen, melo3, melo3Gain, beats2, 0, 1, 0.01);
-		i++;
+Math.random2(1, 2) => int meloNr;
+Math.random2(0, 1) => int major;
+Math.random2(0, 1) => int up;
+for (0 => int i; i < meloLen * 2; i++ ) {
+	melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
+}
+Math.random2(1, 2) => meloNr;
+Math.random2(0, 1) => major;
+Math.random2(0, 1) => up;
+for (0 => int i; i < meloLen * 4; i++ ) {
+	melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
+}
+for (0 => int j; j < 3; j++) {
+	Math.random2(1, 2) => meloNr;
+	Math.random2(0, 1) => major;
+	Math.random2(0, 1) => up;
+	if (meloNr == 1) {
+		for (0 => int i; i < meloLen; i++ ) {
+			melo(i % meloLen, melo1, melo1Gain, beats1, major, up, 0.2);
+		}
+	} else if (meloNr == 2) {
+		for (0 => int i; i < meloLen; i++ ) {
+			melo(i % meloLen, melo2, melo2Gain, beats1, major, up, 0.2);
+		}
+	} 
+	for (0 => int i; i < meloLen; i++ ) {
+		melo(i % meloLen, melo3, melo3Gain, beats2, major, up, 0.2);
 	}
 }
+Math.random2(1, 2) => meloNr;
+Math.random2(0, 1) => major;
+Math.random2(0, 1) => up;
+for (0 => int i; i < meloLen * 1; i++ ) {
+	melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
+}
+for (0 => int i; i < meloLen * 1; i++ ) {
+	melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
+}
+
+now / second => float all;
+<<< "time",  all, "s" >>>;
