@@ -1,8 +1,6 @@
 // Assignmet 4 Function Junction
 // Assignmet_4_African_Accordeon
 
-<<< "", "Assignmet_4_African_Accordeon" >>>
-
 // Midi notes
 [51, 53, 55, 56, 58, 60, 61, 63] @=> int scale[];
 
@@ -157,6 +155,7 @@ Math.random2(0, 1) => up;
 for (0 => int i; i < meloLen * 4; i++ ) {
 	melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
 }
+while(true) {
 for (0 => int j; j < 3; j++) {
 	Math.random2(1, 2) => meloNr;
 	Math.random2(0, 1) => major;
@@ -183,6 +182,6 @@ for (0 => int i; i < meloLen * 1; i++ ) {
 for (0 => int i; i < meloLen * 1; i++ ) {
 	melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
 }
-
+}
 now / second => float all;
 <<< "time",  all, "s" >>>;
