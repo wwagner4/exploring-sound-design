@@ -2,9 +2,17 @@
 
 [49, 50, 52, 54, 56, 57, 59, 61] @=> int notes[];
 
-[1, 3, 0, 3, 5, 7, 5, 0] @=> int npitch[];
-[2, 2, 4, 8, 2, 2, 4, 8] @=> int nlength[];
-[4, 0, 9, 9, 0, 5, 5, 5] @=> int ngain[];
+0 => int ipitch;
+1 => int ilen;
+2 => int igain;
+
+8 => int mlen;
+[
+[
+[3, 3, 0, 3, 5, 7, 5, 0], 
+[2, 2, 4, 8, 2, 2, 4, 8], 
+[4, 7, 9, 9, 0, 5, 5, 5]]
+] @=> int fluteMelody[][][]; 
 
 Flute flute => Gain master;
 
@@ -20,13 +28,14 @@ master => dac;
 
 0 => int t;
 while (true) {
-  npitch[t % npitch.cap()] => int pindex;
+  0 => int imelody;
+  fluteMelody[imelody][ipitch][t % mlen] => int pindex;
   Math.mtof(notes[pindex]) => flute.freq;
   
-  ngain[t % ngain.cap()] / 9.0 => flute.gain;
+  fluteMelody[imelody][igain][t % mlen] / 9.0 => flute.gain;
   
   1.0 => flute.noteOn;
-  nlength[t % nlength.cap()] => int nl;
+  fluteMelody[imelody][ilen][t % mlen] => int nl;
   (nl-1) * lunit => now;
   1.0 => flute.noteOff;
   1 * lunit => now;
