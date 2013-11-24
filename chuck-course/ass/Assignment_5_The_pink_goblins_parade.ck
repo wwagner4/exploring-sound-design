@@ -1,6 +1,6 @@
-// Assignment 5 The pink goblin parade
+// Assignment 5 The pink goblins parade
 
-<<< "", "The pink goblin parade" >>>;
+<<< "", "Assignment_5_The_pink_goblins_parade." >>>;
 
 // Notes
 [49, 50, 52, 54, 56, 57, 59, 61] @=> int notes[];
