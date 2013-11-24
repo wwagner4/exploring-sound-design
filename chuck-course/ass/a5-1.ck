@@ -1,15 +1,15 @@
 // test shakers
 
-JCRev r => dac;
+JCRev srev => Gain sgain => dac;
 
 Shakers shakers[5];
 for (0 => int j; j < shakers.cap(); j++) {
   9 => shakers[j].preset;
   60 => shakers[j].objects;
-  shakers[j] => r;
+  shakers[j] => srev;
 }
 
-.01 => r.mix;
+.01 => srev.mix;
 
 while (true) {
   100::ms => now;
