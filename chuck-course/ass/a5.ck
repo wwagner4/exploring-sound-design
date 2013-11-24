@@ -9,17 +9,9 @@
 8 => int mlen;
 [
 [
-[3, 3, 3, 3, 5, 3, 3, 0], 
-[2, 2, 4, 8, 2, 2, 4, 8], 
-[4, 7, 9, 9, 0, 5, 5, 5]],
-[
-[0, 0, 0, 3, 3, 3, 0, 0], 
-[4, 2, 4, 8, 2, 2, 4, 8], 
-[4, 7, 9, 9, 0, 5, 5, 5]],
-[
-[5, 5, 0, 5, 5, 5, 5, 0], 
-[2, 2, 4, 8, 4, 2, 2, 8], 
-[4, 7, 9, 9, 0, 5, 5, 5]]
+[1, 2, 3, 3, 1, 2, 6, 6], 
+[4, 4, 2, 8, 4, 2, 4, 8], 
+[6, 6, 6, 2, 6, 6, 6, 2]]
 ] @=> int fluteMelody[][][]; 
 
 Flute flute => Gain master;
@@ -30,13 +22,19 @@ Flute flute => Gain master;
 
 100::ms => dur lunit;
 
-master => dac;
+master => JCRev rev => dac;
 
-0.5 => master.gain;
+<<< rev.mix() >>>;
+0.1 => rev.mix;
+
+0.2 => master.gain;
 
 0 => int t;
+0 => int imelody;
 while (true) {
-  Math.random2(0, 2) => int imelody;
+  if (t % 8 == 0) {
+    (imelody + 1) % fluteMelody.cap() => imelody;
+  }
   fluteMelody[imelody][ipitch][t % mlen] => int pindex;
   Math.mtof(notes[pindex]) => flute.freq;
   
