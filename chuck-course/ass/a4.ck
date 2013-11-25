@@ -143,6 +143,7 @@ fun void melo(int k, int melo[], float meloGain[], int beats[][],
 	envelope(300, meloGain[k], attack);
 }
 
+<<< "", "intro" >>>;
 Math.random2(1, 2) => int meloNr;
 Math.random2(0, 1) => int major;
 Math.random2(0, 1) => int up;
@@ -156,32 +157,51 @@ for (0 => int i; i < meloLen * 4; i++ ) {
 	melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
 }
 while(true) {
-for (0 => int j; j < 3; j++) {
+	<<< "", "main" >>>;
+	for (0 => int j; j < 3; j++) {
+		Math.random2(1, 2) => meloNr;
+		Math.random2(0, 1) => major;
+		Math.random2(0, 1) => up;
+		if (meloNr == 1) {
+			for (0 => int i; i < meloLen; i++ ) {
+				melo(i % meloLen, melo1, melo1Gain, beats1, major, up, 0.2);
+			}
+		} else if (meloNr == 2) {
+			for (0 => int i; i < meloLen; i++ ) {
+				melo(i % meloLen, melo2, melo2Gain, beats1, major, up, 0.2);
+			}
+		} 
+		for (0 => int i; i < meloLen; i++ ) {
+			melo(i % meloLen, melo3, melo3Gain, beats2, major, up, 0.2);
+		}
+	}
 	Math.random2(1, 2) => meloNr;
 	Math.random2(0, 1) => major;
 	Math.random2(0, 1) => up;
-	if (meloNr == 1) {
-		for (0 => int i; i < meloLen; i++ ) {
-			melo(i % meloLen, melo1, melo1Gain, beats1, major, up, 0.2);
+	Math.random2(1, 2) => int interNr;
+	if (interNr == 1) {
+		<<< "", "inter 1" >>>;
+		for (0 => int i; i < meloLen * 1; i++ ) {
+			melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
 		}
-	} else if (meloNr == 2) {
-		for (0 => int i; i < meloLen; i++ ) {
-			melo(i % meloLen, melo2, melo2Gain, beats1, major, up, 0.2);
+		for (0 => int i; i < meloLen * 1; i++ ) {
+			melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
 		}
-	} 
-	for (0 => int i; i < meloLen; i++ ) {
-		melo(i % meloLen, melo3, melo3Gain, beats2, major, up, 0.2);
+	} else {
+		<<< "", "inter 2" >>>;
+		Math.random2(1, 2) => meloNr;
+		Math.random2(0, 1) => major;
+		Math.random2(0, 1) => up;
+		for (0 => int i; i < meloLen * 2; i++ ) {
+			melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
+		}
+		Math.random2(1, 2) => meloNr;
+		Math.random2(0, 1) => major;
+		Math.random2(0, 1) => up;
+		for (0 => int i; i < meloLen * 4; i++ ) {
+			melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
+		}
 	}
-}
-Math.random2(1, 2) => meloNr;
-Math.random2(0, 1) => major;
-Math.random2(0, 1) => up;
-for (0 => int i; i < meloLen * 1; i++ ) {
-	melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
-}
-for (0 => int i; i < meloLen * 1; i++ ) {
-	melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
-}
 }
 now / second => float all;
 <<< "time",  all, "s" >>>;
