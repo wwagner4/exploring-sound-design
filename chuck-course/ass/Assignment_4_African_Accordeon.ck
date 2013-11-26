@@ -77,6 +77,10 @@ me.dir() + "/audio/stereo_fx_05.wav"
 Gain master => dac;
 0.1 => master.gain;
 
+// Do some recording
+dac => WvOut out => blackhole;
+out.wavFilename("AfricanAccordeon.wav");
+
 // Master gain for melody
 Gain mmaster => master;
 2.0 => mmaster.gain;
@@ -225,3 +229,5 @@ for (0 => int i; i < meloLen * 1; i++ ) {
 
 now / second => float all;
 <<< "time",  all, "s" >>>;
+out.closeFile;
+
