@@ -1,6 +1,8 @@
 // Assignmet 4 Function Junction
 // Assignmet_4_African_Accordeon
 
+<<< "", "Assignmet_4_African_Accordeon" >>>;
+
 // Midi notes
 [51, 53, 55, 56, 58, 60, 61, 63] @=> int scale[];
 
@@ -32,7 +34,10 @@ me.dir() + "/audio/stereo_fx_04.wav",
 me.dir() + "/audio/stereo_fx_05.wav"
 ] @=> string files[];
 
+// Length of melody
 8 => int meloLen; 
+
+// five different melodies and their gain per note
 [  0,   0,   0,   7,   6,   7,   1,   1] @=> int   melo1[];
 [1.0, 0.1, 0.1, 1.0, 0.1, 0.1, 0.1, 0.1] @=> float melo1Gain[];
 
@@ -48,6 +53,7 @@ me.dir() + "/audio/stereo_fx_05.wav"
 [  0,   0,   0,   0,   3,   3,   3,   3] @=> int   melo5[];
 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] @=> float melo5Gain[];
 
+// Percussion Instruments
 [1, 2, 3, 5] @=> int percussion[];
 [
 // One pattern for each percussion, 
@@ -67,16 +73,21 @@ me.dir() + "/audio/stereo_fx_05.wav"
 [1,0,0,1,1,0,0,0]  
 ] @=> int beats2[][];
 
-
+// Master gain
 Gain master => dac;
 0.1 => master.gain;
+
+// Master gain for melody
 Gain mmaster => master;
-1.5 => mmaster.gain;
+2.0 => mmaster.gain;
+
+// TriOscs for the melody
 TriOsc oscs[3];
 for (0 => int i; i < oscs.cap(); i++) {
 	oscs[i] => mmaster;
 }
 
+// SndBuf for percussion
 SndBuf bufs[percussion.cap()];
 for (0 => int i; i < percussion.cap(); i++) {
 	files[percussion[i]] => string file;
@@ -85,6 +96,7 @@ for (0 => int i; i < percussion.cap(); i++) {
 	bufs[i] => master;
 }
 
+// Play a chord
 fun void chord(int base, int isMinor, int isUp) {
     Std.mtof(base) => oscs[0].freq;
 	if (isMinor == 1) {
@@ -99,11 +111,13 @@ fun void chord(int base, int isMinor, int isUp) {
 	}
 }
 
+// Play one note
 fun void playNote(int rnote, int isMinor, int isUp) {
 	scale[rnote] => int note;
 	chord(note, isMinor, isUp);
 } 
 
+// Play the beats for one timeslot
 fun void setBeat(int k, int beats[][]) {
 	for (0 => int j; j < bufs.cap(); j++) {
 		if (beats[j][k] > 0) {
@@ -112,6 +126,7 @@ fun void setBeat(int k, int beats[][]) {
 	}
 }
 
+// Envelope for note
 fun void envelope(float dur, float maxGain, float attack) {
 	now + dur::ms => time end;
 	0.01 => float gain;
@@ -135,6 +150,7 @@ fun void envelope(float dur, float maxGain, float attack) {
 	}
 }
 
+// Play melody and percussion together
 fun void melo(int k, int melo[], float meloGain[], int beats[][], 
 		int isMajor, int isUp, float attack) {
 	melo[k] => int rnote;
@@ -143,7 +159,8 @@ fun void melo(int k, int melo[], float meloGain[], int beats[][],
 	envelope(300, meloGain[k], attack);
 }
 
-<<< "", "intro" >>>;
+
+// Main Program
 Math.random2(1, 2) => int meloNr;
 Math.random2(0, 1) => int major;
 Math.random2(0, 1) => int up;
@@ -156,52 +173,34 @@ Math.random2(0, 1) => up;
 for (0 => int i; i < meloLen * 4; i++ ) {
 	melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
 }
-while(true) {
-	<<< "", "main" >>>;
-	for (0 => int j; j < 3; j++) {
-		Math.random2(1, 2) => meloNr;
-		Math.random2(0, 1) => major;
-		Math.random2(0, 1) => up;
-		if (meloNr == 1) {
-			for (0 => int i; i < meloLen; i++ ) {
-				melo(i % meloLen, melo1, melo1Gain, beats1, major, up, 0.2);
-			}
-		} else if (meloNr == 2) {
-			for (0 => int i; i < meloLen; i++ ) {
-				melo(i % meloLen, melo2, melo2Gain, beats1, major, up, 0.2);
-			}
-		} 
-		for (0 => int i; i < meloLen; i++ ) {
-			melo(i % meloLen, melo3, melo3Gain, beats2, major, up, 0.2);
-		}
-	}
+// Main melody
+for (0 => int j; j < 3; j++) {
 	Math.random2(1, 2) => meloNr;
 	Math.random2(0, 1) => major;
 	Math.random2(0, 1) => up;
-	Math.random2(1, 2) => int interNr;
-	if (interNr == 1) {
-		<<< "", "inter 1" >>>;
-		for (0 => int i; i < meloLen * 1; i++ ) {
-			melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
+	if (meloNr == 1) {
+		for (0 => int i; i < meloLen; i++ ) {
+			melo(i % meloLen, melo1, melo1Gain, beats1, major, up, 0.2);
 		}
-		for (0 => int i; i < meloLen * 1; i++ ) {
-			melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
+	} else if (meloNr == 2) {
+		for (0 => int i; i < meloLen; i++ ) {
+			melo(i % meloLen, melo2, melo2Gain, beats1, major, up, 0.2);
 		}
-	} else {
-		<<< "", "inter 2" >>>;
-		Math.random2(1, 2) => meloNr;
-		Math.random2(0, 1) => major;
-		Math.random2(0, 1) => up;
-		for (0 => int i; i < meloLen * 2; i++ ) {
-			melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
-		}
-		Math.random2(1, 2) => meloNr;
-		Math.random2(0, 1) => major;
-		Math.random2(0, 1) => up;
-		for (0 => int i; i < meloLen * 4; i++ ) {
-			melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
-		}
+	} 
+	for (0 => int i; i < meloLen; i++ ) {
+		melo(i % meloLen, melo3, melo3Gain, beats2, major, up, 0.2);
 	}
 }
+// Endphase
+Math.random2(1, 2) => meloNr;
+Math.random2(0, 1) => major;
+Math.random2(0, 1) => up;
+for (0 => int i; i < meloLen * 1; i++ ) {
+	melo(i % meloLen, melo4, melo4Gain, beats1, major, up, 0.2);
+}
+for (0 => int i; i < meloLen * 1; i++ ) {
+	melo(i % meloLen, melo5, melo5Gain, beats1, major, up, 0.2);
+}
+
 now / second => float all;
 <<< "time",  all, "s" >>>;
