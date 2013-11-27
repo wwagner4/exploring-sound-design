@@ -4,7 +4,6 @@
 // Part of your composition goes here
 
 NRev r => Gain master => dac;
-.5 => r.gain;
 .01 => r.mix;
 0.1 => master.gain;
 
