@@ -3,12 +3,12 @@
 
 // Setup oscillators
 TriOsc s => Pan2 pan => dac;
-SawOsc s2 => Pan2 pan2 => dac;
+SqrOsc s2 => Pan2 pan2 => dac;
 
 // Overall gainfactor for melody
 0.4 => float gf;
 // Overall gainfactor for background
-0.04 => float g2f;
+0.02 => float g2f;
 
 // Pan melody to the middle
 0 => pan.pan;
@@ -67,8 +67,9 @@ while (true) {
     // Play one note of the melody    
     i => float fi;
     // Calculate background gain and pan
-    1.0 - (fi / imax) => float g2;
-    -1.0 + g2 * 1.5 => float p2;
+    1.0 - (fi / imax)  => float g2;
+    -0.5 + g2 * 0.5 => float p2;
+    <<< p2 >>>;
     p2 => pan2.pan;
     g2 * g2f => s2.gain;
     // Set melody frequency
