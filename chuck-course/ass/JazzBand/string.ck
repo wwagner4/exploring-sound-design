@@ -4,14 +4,14 @@
 // Part of your composition goes here
 
 NRev r => dac;
-.1 => r.gain;
+.7 => r.gain;
 .01 => r.mix;
 
 StifKarp sks[3];
 
 for (0 => int i; i<sks.cap(); i++) {
     0.3 => sks[i].pickupPosition;
-    0.9 => sks[i].sustain;
+    0.5 => sks[i].sustain;
     0.5 => sks[i].stretch;
     sks[i] => r;
 }
@@ -19,13 +19,19 @@ for (0 => int i; i<sks.cap(); i++) {
 
 
 // our notes
-[ 61, 61, 61, 65, 65, 65, 66, 66, 66 ] @=> int notes[];
+[ 46, 48, 49, 51, 53, 54, 56, 58 ] @=> int notes[];
+[
+[1, 1, 50, 50],
+[50, 1, 50, 1],
+[1, 50, 50, 50],
+[50, 1, 1, 1],
+[50, 50, 50, 1]] @=> int len[][];
 
 // basic play function (add more arguments as needed)
 fun void play(StifKarp m,  float note, float velocity )
 {
     // start the note
-    0.01 => float fdiff;
+    0.1 => float fdiff;
     Std.mtof( note ) + Math.random2f(-fdiff, fdiff) => m.freq;
     velocity * Math.random2f(0.6, 1.1) => m.pluck;
 }
@@ -39,29 +45,25 @@ fun void playMulti(StifKarp m, int note) {
 }
 fun void playCord(int note) {
     spork ~ playMulti(sks[0], note );
-    if (Math.random2(1, 4) == 1) spork ~ playMulti(sks[1], note + 7);
+    if (Math.random2(1, 2) == 1) spork ~ playMulti(sks[1], note + 7);
     else                         spork ~ playMulti(sks[1], note - 5);
-    if (Math.random2(1, 4) == 1) spork ~ playMulti(sks[2], note + 3);
-    else                         spork ~ playMulti(sks[2], note + 4);    
+    if (Math.random2(1, 2) == 1) spork ~ playMulti(sks[2], note + 4);
+    else                         spork ~ playMulti(sks[2], note + 3);    
  } 
 
 // infinite time-loop
+-6 => int trans;
+
 while( true )
 {
-    for( int i; i < notes.cap(); i++ )
+    for(0 => int i; i < notes.cap(); i++ )
     {   
-        playCord(notes [i] - 14);    
-        10::ms => now;
-        playCord(notes [i] - 15);    
-        10::ms => now;
-        playCord(notes [i] - 15);    
-        10::ms => now;
-        playCord(notes [i] - 16);    
-        150::ms => now;
-        playCord(notes [i] - 17);    
-        100::ms => now;
-        playCord(notes [i] - 18);    
-        500::ms => now;
+      Math.random2(0, len.cap()-1) => int chara;
+      for (0 => int j; j < len[chara].cap(); j++ ) {
+        playCord(notes [i] + trans);    
+        len[chara][j]::ms => now;
+      }
+      500::ms => now;
     }
 }
 
