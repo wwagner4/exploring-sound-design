@@ -5,7 +5,7 @@
 
 NRev r => Gain master => dac;
 .01 => r.mix;
-0.1 => master.gain;
+0.4 => master.gain;
 
 StifKarp sks[3];
 
@@ -23,13 +23,16 @@ for (0 => int i; i<sks.cap(); i++) {
 
 [
 [10, 20, 30, 30],
-[10, 20, 30, 30],
-[10, 20, 30, 30],
-[10, 20, 30, 30],
-[10, 20, 30, 30]] @=> int charaLen[][];
+[10, 20, 10, 10],
+[10, 20, 10, 30],
+[10, 10, 10, 30],
+[10, 10, 30, 30]] @=> int charaLen[][];
 
 9 => int mlen;
-[0, 4, 0, 6, 2, 0, 5, 5, 0] @=> int m1p[];
+[6, 6, 0, 4, 4, 0, 3, 0, 0] @=> int m2p[];
+[4, 5, 0, 4, 8, 0, 4, 0, 0] @=> int m2v[];
+
+[0, 4, 0, 6, 2, 0, 5, 0, 0] @=> int m1p[];
 [4, 5, 0, 4, 8, 0, 4, 0, 0] @=> int m1v[];
 
 // basic play function (add more arguments as needed)
