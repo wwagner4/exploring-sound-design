@@ -5,7 +5,7 @@
 
 NRev r => Gain master => dac;
 .01 => r.mix;
-0.4 => master.gain;
+0.05 => master.gain;
 
 StifKarp sks[3];
 
@@ -69,7 +69,7 @@ fun void play(StifKarp m,  float note, float velocity )
 
 fun void playMulti(StifKarp m, int note, float velo) {
     repeat(4) {
-        spork ~ play(m, note , velo);
+        play(m, note , velo);
         Math.random2f(10, 20) => float delay;
         delay::ms => now;
     }
@@ -83,6 +83,7 @@ fun void playCord(int note, float velo) {
 } 
 
 fun void playMelo(int imelody) {
+    <<< "melo", (now / ms) >>>;
     for(0 => int i; i < mlen; i++ ) { 
       notes[melody[imelody][ipitch][i]] => int note;
       melody[imelody][igain][i] / 9.0 => float velo;
