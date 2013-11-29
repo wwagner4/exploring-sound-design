@@ -7,7 +7,7 @@ Machine.add(me.dir() + "/drums.ck") => int drumID;
 
 10::second => now;
 
-Machine.add(me.dir() + "/bass.ck") => int bassID;
+Machine.add(me.dir() + "/string.ck") => int bassID;
 
 10::second => now;
 
