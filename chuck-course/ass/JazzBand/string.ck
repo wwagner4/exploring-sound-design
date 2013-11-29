@@ -22,7 +22,7 @@ for (0 => int i; i<sks.cap(); i++) {
 [ 46, 48, 49, 51, 53, 54, 56, 58 ] @=> int notes[];
 
 150 => int tickLen; // in ms
--5 => int trans; // transpose in midi
+-12 => int trans; // transpose in midi
 
 [
 [10, 20, 30, 30],
@@ -37,12 +37,17 @@ for (0 => int i; i<sks.cap(); i++) {
 1 => int igain;
 [
 [
-[7, 0, 0, 0, 0, 0, 0, 0, 0], 
-[5, 5, 5, 5, 5, 5, 5, 5, 5]],
+[7, 0, 0, 5, 0, 0, 3, 0, 0], 
+[4, 0, 0, 2, 0, 0, 1, 0, 0]],
 [
-[0, 1, 0, 6, 2, 0, 5, 0, 0], 
-[4, 5, 0, 4, 8, 0, 4, 0, 0]]
+[0, 3, 0, 3, 3, 0, 5, 0, 0], 
+[4, 5, 0, 8, 7, 0, 4, 0, 0]],
+[
+[0, 3, 0, 5, 3, 0, 3, 0, 0], 
+[4, 5, 0, 7, 8, 0, 4, 0, 0]]
 ] @=> int melody[][][]; 
+
+0 => int imelody;
 
 fun void play(StifKarp m,  float note, float velocity )
 {
@@ -69,7 +74,6 @@ fun void playCord(int note, float velo) {
 
 while( true )
 {
-    1 => int imelody;
     for(0 => int i; i < mlen; i++ ) { 
       notes[melody[imelody][ipitch][i]] => int note;
       melody[imelody][igain][i] / 9.0 => float velo;
@@ -80,7 +84,7 @@ while( true )
           charaLen[chara][j]::ms => now;
         }
       }
-      150::ms => now;
+      tickLen::ms => now;
     }
 }
 
