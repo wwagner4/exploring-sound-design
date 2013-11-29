@@ -21,6 +21,9 @@ for (0 => int i; i<sks.cap(); i++) {
 // our notes
 [ 46, 48, 49, 51, 53, 54, 56, 58 ] @=> int notes[];
 
+150 => int tickLen; // in ms
+-5 => int trans; // transpose in midi
+
 [
 [10, 20, 30, 30],
 [10, 20, 10, 10],
@@ -29,16 +32,20 @@ for (0 => int i; i<sks.cap(); i++) {
 [10, 10, 30, 30]] @=> int charaLen[][];
 
 9 => int mlen;
-[
-[6, 6, 0, 4, 4, 0, 3, 0, 0],
-[4, 5, 0, 4, 8, 0, 4, 0, 0]],
-[0, 4, 0, 6, 2, 0, 5, 0, 0] @=> int m1p[];
-[4, 5, 0, 4, 8, 0, 4, 0, 0] @=> int m1v[];
 
-// basic play function (add more arguments as needed)
+0 => int ipitch;
+1 => int igain;
+[
+[
+[7, 0, 0, 0, 0, 0, 0, 0, 0], 
+[5, 5, 5, 5, 5, 5, 5, 5, 5]],
+[
+[0, 1, 0, 6, 2, 0, 5, 0, 0], 
+[4, 5, 0, 4, 8, 0, 4, 0, 0]]
+] @=> int melody[][][]; 
+
 fun void play(StifKarp m,  float note, float velocity )
 {
-    // start the note
     0.01 => float fdiff;
     Std.mtof( note ) + Math.random2f(-fdiff, fdiff) => m.freq;
     velocity * Math.random2f(0.6, 1.1) => m.pluck;
@@ -59,14 +66,13 @@ fun void playCord(int note, float velo) {
     else                         spork ~ playMulti(sks[2], note + 3, velo);    
  } 
 
-// infinite time-loop
--6 => int trans;
 
 while( true )
 {
+    1 => int imelody;
     for(0 => int i; i < mlen; i++ ) { 
-      notes[m1p[i]] => int note;
-      m1v[i] / 9.0 => float velo;
+      notes[melody[imelody][ipitch][i]] => int note;
+      melody[imelody][igain][i] / 9.0 => float velo;
       Math.random2(0, charaLen.cap()-1) => int chara;
       for (0 => int j; j < charaLen[chara].cap(); j++ ) {
         if (velo > 0) {
