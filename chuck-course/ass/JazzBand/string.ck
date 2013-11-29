@@ -63,9 +63,9 @@ fun void play(StifKarp m,  float note, float velocity ) {
 
 fun void playCord(int note, float velo) {
                                  spork ~ play(sks[0], note, velo);
-    if (Math.random2(1, 7) == 1) spork ~ play(sks[1], note + 7, velo);
+    if (Math.random2(1, 3) == 1) spork ~ play(sks[1], note + 7, velo);
     else                         spork ~ play(sks[1], note - 5, velo);
-    if (Math.random2(1, 7) == 1) spork ~ play(sks[2], note + 4, velo);
+    if (Math.random2(1, 4) == 1) spork ~ play(sks[2], note + 4, velo);
     else                         spork ~ play(sks[2], note + 3, velo);    
 } 
 
