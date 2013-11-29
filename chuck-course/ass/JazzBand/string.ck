@@ -25,11 +25,11 @@ for (0 => int i; i<sks.cap(); i++) {
 -12 => int trans; // transpose in midi
 
 [
-[10, 20, 30, 30],
-[10, 20, 10, 10],
-[10, 20, 10, 30],
-[10, 10, 10, 30],
-[10, 10, 30, 30]] @=> int charaLen[][];
+[1, 2, 3, 3],
+[1, 2, 1, 1],
+[1, 2, 1, 3],
+[1, 1, 1, 3],
+[1, 1, 3, 3]] @=> int charaLen[][];
 
 9 => int mlen;
 
@@ -74,12 +74,13 @@ fun void playMulti(StifKarp m, int note, float velo) {
         delay::ms => now;
     }
 }
-fun void playCord(int note, float velo) {
-    spork ~ playMulti(sks[0], note, velo);
-    if (Math.random2(1, 7) == 1) spork ~ playMulti(sks[1], note + 7, velo);
-    else                         spork ~ playMulti(sks[1], note - 5, velo);
-    if (Math.random2(1, 7) == 1) spork ~ playMulti(sks[2], note + 4, velo);
-    else                         spork ~ playMulti(sks[2], note + 3, velo);    
+fun void playCord(int note, float velo, float delay) {
+    delay::ms => now;
+                                 playMulti(sks[0], note, velo);
+    if (Math.random2(1, 7) == 1) playMulti(sks[1], note + 7, velo);
+    else                         playMulti(sks[1], note - 5, velo);
+    if (Math.random2(1, 7) == 1) playMulti(sks[2], note + 4, velo);
+    else                         playMulti(sks[2], note + 3, velo);    
 } 
 
 fun void playMelo(int imelody) {
@@ -90,8 +91,7 @@ fun void playMelo(int imelody) {
       Math.random2(0, charaLen.cap()-1) => int chara;
       for (0 => int j; j < charaLen[chara].cap(); j++ ) {
         if (velo > 0) {
-          playCord(note + trans, velo);    
-          charaLen[chara][j]::ms => now;
+          spork ~ playCord(note + trans, velo, charaLen[chara][j]);    
         }
       }
       tickLen::ms => now;

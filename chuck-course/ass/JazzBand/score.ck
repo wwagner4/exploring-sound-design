@@ -14,7 +14,7 @@ Machine.add(me.dir() + "/string.ck") => int stringID;
 //Machine.add(me.dir() + "/flute.ck") => int fluteID;
 //Machine.add(me.dir() + "/piano.ck") => int pianoID;
 
-50::second => now;
+130::second => now;
 
 Machine.remove(stringID);
 Machine.remove(drumID);
