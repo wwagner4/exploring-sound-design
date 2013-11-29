@@ -3,4 +3,6 @@
 
 Machine.add(me.dir() + "/drums.ck") => int drumID;
 Machine.add(me.dir() + "/string.ck") => int stringID;
+10000::ms => now;
+Machine.add(me.dir() + "/flute.ck") => int fluteID;
 
