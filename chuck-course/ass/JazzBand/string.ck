@@ -21,33 +21,42 @@ for (0 => int i; i<sks.cap(); i++) {
 // our notes
 [ 46, 48, 49, 51, 53, 54, 56, 58 ] @=> int notes[];
 
-100 => int tickLen; // in ms
+90 => int tickLen; // in ms
 0 => int trans; // transpose in midi
 
 0 => int ipitch;
 1 => int igain;
 [
 [
-[7, 5, 5,  4, 2, 5,  7, 5, 5], 
+[5, 5, 5,  4, 2, 5,  7, 5, 5], 
 [3, 2, 0,  3, 2, 0,  0, 0, 0]],
 [
-[4, 0, 5,  0, 2, 5,  7, 5, 5], 
+[4, 0, 5,  0, 2, 5,  5, 5, 5], 
 [3, 2, 0,  3, 2, 0,  0, 0, 0]],
 [
-[4, 2, 5,  7, 5, 5,  7, 5, 5], 
+[0, 5, 0,  0, 3, 0,  3, 5, 5], 
 [3, 2, 0,  3, 2, 0,  0, 0, 0]],
 [
-[7, 5, 5,  4, 2, 5,  7, 5, 5], 
+[5, 5, 5,  4, 2, 5,  0, 5, 5], 
 [3, 0, 0,  3, 0, 0,  0, 0, 0]],
 [
-[4, 5, 5,  7, 2, 5,  7, 5, 5], 
+[4, 5, 5,  5, 2, 5,  0, 5, 5], 
 [3, 0, 0,  3, 0, 0,  0, 0, 0]],
 [
 [0, 5, 5,  0, 2, 5,  7, 5, 5], 
 [3, 0, 0,  3, 0, 0,  0, 0, 0]],
 [
 [0, 0, 0,  0, 0, 0,  0, 0, 0], 
-[0, 0, 0,  0, 0, 0,  0, 0, 0]]
+[0, 0, 0,  0, 0, 0,  0, 0, 0]],
+[
+[5, 5, 5,  4, 2, 5,  7, 5, 5], 
+[2, 0, 0,  0, 0, 0,  0, 0, 0]],
+[
+[4, 5, 5,  4, 2, 5,  7, 5, 5], 
+[2, 0, 0,  0, 0, 0,  0, 0, 0]],
+[
+[0, 5, 5,  4, 2, 5,  7, 5, 5], 
+[2, 0, 0,  0, 0, 0,  0, 0, 0]]
 ] @=> int melody[][][]; 
 
 melody[0][0].cap() => int mlen;
@@ -79,18 +88,45 @@ fun void playMelo(int imelody) {
     }
 }
 
-fun void playSeq() {
+fun void playSeqA() {
   playMelo(Math.random2(0, 2));
   playMelo(Math.random2(3, 5));
   playMelo(Math.random2(3, 5));
   playMelo(6);
 }
 
-now => time start;
-repeat ( 10 )
-{
-  playSeq();
-  <<< "time", (now - start) / second >>>;
+fun void playSeqB() {
+  playMelo(Math.random2(3, 5));
+  playMelo(Math.random2(3, 5));
+  playMelo(Math.random2(3, 5));
+  playMelo(6);
 }
+
+fun void playSeqC() {
+  playMelo(Math.random2(7, 9));
+  playMelo(Math.random2(7, 9));
+  playMelo(Math.random2(7, 9));
+  playMelo(6);
+}
+
+fun void playSeqD() {
+  playMelo(Math.random2(7, 9));
+  playMelo(6);
+  playMelo(6);
+  playMelo(6);
+}
+
+now => time start;
+playSeqC();
+playSeqC();
+playSeqB();
+playSeqA();
+playSeqA();
+playSeqB();
+playSeqC();
+playSeqC();
+playSeqC();
+playSeqD();
+<<< "time string", (now - start) / second >>>;
 1000::ms => now;
 
