@@ -54,6 +54,7 @@ melody[0][0].cap() => int mlen;
 
 // functions
 fun void play(StifKarp m,  float note, float velocity ) {
+    Math.random2(50, 100)::ms => now;
     0.005 => float fdiff;
     Std.mtof( note ) + Math.random2f(-fdiff, fdiff) => m.freq;
     velocity * Math.random2f(0.6, 1.1) => m.pluck;
