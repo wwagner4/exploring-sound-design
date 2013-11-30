@@ -5,15 +5,17 @@
 
 NRev r => Gain master => dac;
 .01 => r.mix;
-0.1 => master.gain;
+0.2 => master.gain;
 
 StifKarp sks[3];
+Pan2 pan[3];
 
 for (0 => int i; i<sks.cap(); i++) {
-    0.3 => sks[i].pickupPosition;
+    0.1 => sks[i].pickupPosition;
     0 => sks[i].sustain;
     0 => sks[i].stretch;
-    sks[i] => r;
+    -0.5 + 0.5 * i => pan[i].pan; 
+    sks[i] => pan[i] => r;
 }
 
 
@@ -63,7 +65,7 @@ melody[0][0].cap() => int mlen;
 
 // functions
 fun void play(StifKarp m,  float note, float velocity ) {
-    Math.random2(50, 100)::ms => now;
+    Math.random2(10, 30)::ms => now;
     0.005 => float fdiff;
     Std.mtof( note ) + Math.random2f(-fdiff, fdiff) => m.freq;
     velocity * Math.random2f(0.6, 1.1) => m.pluck;

@@ -3,33 +3,43 @@
 
 // Part of your composition goes here
 
-
-Saxofony s1 => dac;
-Saxofony s2 => dac;
-
-// our notes
-[ 46, 48, 49, 51, 53, 54, 56, 58 ] @=> int notes[];
-[3, 7, 5] @=>  int noteIndex[];
+[ 51, 54 ] @=> int notes[];
 
 
-0.01 => s1.gain;
-0.006 => s2.gain;
+[
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 1,0,0,1,0,0,2,0,0, 5,0,0,7,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 1,0,0,1,0,0,2,0,0, 5,0,0,7,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 1,0,0,1,0,0,2,0,0, 5,0,0,7,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0]
+] @=> int drum[][];
 
-fun void playSax(Saxofony s) {
-  now => time start;
-  while(now < start + 20::second){
-      Math.random2(0, noteIndex.cap()-1) => int i;
-      Math.mtof(notes[noteIndex[i]]) => s.freq;
-      0.6 => s.startBlowing;
-      Math.random2(2000, 4000) => int len;
-      len::ms => now;
-      1.0 => s.stopBlowing;
-      Math.random2(100, 500) => len;
-      len::ms => now;
-  }
+drum[0].cap() => int drumLen;
+90 => float tickLen; // in ms
+
+
+Flute wg => Gain master => dac;
+
+0.1 => master.gain;
+
+fun void playDrum(float velo) {
+  velo => wg.noteOn;
+  100::ms => now;
+  velo => wg.noteOff;
 }
 
-spork ~ playSax(s1);
-10::second => now;
-spork ~ playSax(s2);
-40000::second => now;
+for (0 => int i; i < drum.cap(); i++) {
+  Math.mtof(notes[i % 2]) => wg.freq;
+  for (0 => int j; j < drumLen; j++) {
+    drum[i][j] => int velo;
+    if (velo > 0) {
+      velo / 5.0 => float fvelo;
+      spork ~ playDrum(fvelo);
+    }
+    tickLen::ms => now;
+  }
+}
