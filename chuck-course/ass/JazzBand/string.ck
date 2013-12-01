@@ -1,7 +1,5 @@
-// bass.ck
-// Insert the title of your piece here
-
-// Part of your composition goes here
+// string.ck
+// Lonly guitar on the wall
 
 NRev r => Gain master => dac;
 .01 => r.mix;
