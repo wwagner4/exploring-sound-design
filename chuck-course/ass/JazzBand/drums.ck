@@ -1,5 +1,7 @@
 // drums.ck
-// Insert the title of your piece here
+// Lonly guitar on the wall
+
+// Define when to hit the BandedWG in what velocity
 [
 [0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0],
@@ -12,19 +14,22 @@
 [1,0,0,0,0,0,0,0,0, 1,0,0,0,0,0,0,0,0, 1,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0]
 ] @=> int drum[][];
 
-drum[0].cap() => int drumLen;
-90 => float tickLen; // in ms
-
-
+// Music setup
 BandedWG wg => Gain master => dac;
 
+// Some globals
+drum[0].cap() => int drumLen;
+90 => float tickLen; // in ms
 1.0 => master.gain;
 
+
+// Play one note
 fun void playDrum(float velo) {
   velo => wg.noteOn;
   500::ms => now;
 }
 
+// Main program
 for (0 => int i; i < drum.cap(); i++) {
   for (0 => int j; j < drumLen; j++) {
     drum[i][j] => int velo;
