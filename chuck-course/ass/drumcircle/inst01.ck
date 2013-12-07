@@ -3,9 +3,9 @@
 // Setup sound chain
 TriOsc s => ADSR e => NRev rev => Gain master => dac;
 0.07 => float maxGain;
-0.05 => rev.mix;
+0.1 => rev.mix;
 
-e.set( 5::ms, 8::ms, .7, 100::ms);
+e.set( 20::ms, 8::ms, .9, 100::ms);
 // Create a notes object
 Notes n;
 6 => int upmode;
@@ -21,7 +21,13 @@ fun void exchangeMode() {
 
 fun float fadeOut(int t) {
   float re;
-  if (t < 150) maxGain => re;
+  if (t < 50) {
+    maxGain / 2.0 / 50.0 => float k;
+    maxGain / 2.0 => float a;
+    t * k + a => float g;
+    g => re;
+  }
+  else if (t < 150) maxGain => re;
   else {
     - maxGain / 50.0 => float k;
     - k * 200.0 => float a;
