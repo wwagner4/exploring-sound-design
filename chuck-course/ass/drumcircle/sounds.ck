@@ -25,7 +25,10 @@ public class Sounds {
   
   Gain master => dac;
   
+  1.0 => float _gain;
+  
   fun void gain(float value) {
+    value => _gain;
   }
   
   0 => int instIndex;
@@ -38,7 +41,7 @@ public class Sounds {
   }
 
   fun void keyOn(float velocity) {
-    velocity => master.gain; 
+    velocity * _gain => master.gain; 
     0 => buffers[instIndex % files.cap()].pos;   
   }
     
