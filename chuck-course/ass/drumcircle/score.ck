@@ -1,10 +1,13 @@
 // The score file for that piece
 
+Bpm dur;
+200 => dur.bpm;
+
 Machine.add(me.dir() + "/inst01.ck");
-7000::ms => now;
+dur.dur(0) * 10 => now;
 Machine.add(me.dir() + "/inst01.ck");
-5000::ms => now;
+dur.dur(0) * 10 => now;
 Machine.add(me.dir() + "/inst01.ck");
-5000::ms => now;
+dur.dur(0) * 10 => now;
 Machine.add(me.dir() + "/inst01.ck");
 

@@ -5,48 +5,59 @@ TriOsc s => ADSR e => NRev rev => Gain master => dac;
 0.07 => float maxGain;
 0.1 => rev.mix;
 
+// Instantiate a BPM class
+Bpm bpm;
+
+// Configure the envelope
 e.set( 20::ms, 8::ms, .9, 100::ms);
+
 // Create a notes object
 Notes n;
+
+// Some global variables
 6 => int upmode;
 4 => int downmode;
 1 => int isdirup;
 
+// Exchange up- and downmode
 fun void exchangeMode() {
   upmode => int tmp;
   downmode => upmode;
   tmp => downmode;
-  <<< "exch", upmode, downmode >>>;
+  //<<< "exch", upmode, downmode >>>;
 }
 
-fun float fadeOut(int t) {
+fun float gainTrend(int t, int tlen) {
   float re;
-  if (t < 50) {
-    maxGain / 2.0 / 50.0 => float k;
+  tlen / 4.0 => float t1;
+  tlen * 3.0 / 4.0 => float t2;
+  if (t <= t1) {
+    maxGain / 2.0 / t1 => float k;
     maxGain / 2.0 => float a;
     t * k + a => float g;
     g => re;
   }
-  else if (t < 150) maxGain => re;
+  else if (t <= t2) maxGain => re;
   else {
-    - maxGain / 50.0 => float k;
-    - k * 200.0 => float a;
+    - maxGain / (tlen - t2) => float k;
+    - k * tlen => float a;
     t * k + a => float g;
     g => re;
   }
   return re;
 }
 
-
+100 => int tlen;
 0 => int t;
-repeat (200) {
-  fadeOut(t) => master.gain;
+repeat (tlen) {
+  gainTrend(t, tlen) => master.gain;
   if (isdirup == 1) n.freq(n.cap() - t % n.cap()) => s.freq;
   else n.freq(t % n.cap()) => s.freq;
   e.keyOn();
-  100::ms => now;
+  //<<< "bpm.dur(0)", bpm.dur(0) / ms >>>; 
+  bpm.dur(0) * 0.7 => now;
   e.keyOff();
-  100::ms => now;
+  bpm.dur(0) * 0.3 => now;
   if (t % upmode == 0 && t % downmode == 0); // nothing to do
   else if (t % upmode == 0 ) n.octup();
   else if (t % downmode == 0 ) n.octdown();
@@ -57,3 +68,4 @@ repeat (200) {
   }
   t++;
 }
+<<< "stop", "inst01" >>>;

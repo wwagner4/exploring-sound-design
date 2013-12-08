@@ -7,14 +7,25 @@ public class Bpm {
   
   // Define a static array of size 8. (workaround)
   8 => int _size;
-  static dur blens[];
-  [500::ms, 250::ms, 125::ms, 63::ms, 31::ms, 16::ms, 8::ms, 4::ms] @=> blens;
+  static dur blen0;
+  static dur blen1;
+  static dur blen2;
+  static dur blen3;
+  static dur blen4;
+  static dur blen5;
+  static dur blen6;
+  static dur blen7;
   
   // calculate the duration for a given bpm
   fun void defineBlens() {
-    for (0=>int i; i < _size; i++) {
-      calcBlen(i) => blens[i];
-    }
+    calcBlen(0) => blen0;
+    calcBlen(1) => blen1;
+    calcBlen(2) => blen2;
+    calcBlen(3) => blen3;
+    calcBlen(4) => blen4;
+    calcBlen(5) => blen5;
+    calcBlen(6) => blen6;
+    calcBlen(7) => blen7;
   }
   // calculate the duration for a given bpm and a power 2 factor
   // power two factors are 1, 2, 4, 8, 16 ,...
@@ -25,7 +36,15 @@ public class Bpm {
 
   // get a duration with a certain factor
   fun dur dur(int durIndex) {
-    return blens[durIndex % _size];
+    Math.abs(durIndex) % _size => int i;
+    if (i == 0) return blen0;
+    if (i == 1) return blen1;
+    if (i == 2) return blen2;
+    if (i == 3) return blen3;
+    if (i == 4) return blen4;
+    if (i == 5) return blen5;
+    if (i == 6) return blen6;
+    if (i == 7) return blen7;
   }
 
   // Set a new bpm and recalculate the durations 
@@ -57,4 +76,22 @@ Bpm b2;
     b2.dur(5) / ms, 
     b2.dur(6) / ms, 
     b2.dur(7) / ms >>> ;
+50 => b1.bpm;
+<<< b1.dur(0) / ms, 
+    b1.dur(1) / ms, 
+    b1.dur(2) / ms, 
+    b1.dur(3) / ms, 
+    b1.dur(4) / ms, 
+    b1.dur(5) / ms, 
+    b1.dur(6) / ms, 
+    b1.dur(7) / ms >>> ;
+<<< b2.dur(0) / ms, 
+    b2.dur(1) / ms, 
+    b2.dur(2) / ms, 
+    b2.dur(3) / ms, 
+    b2.dur(4) / ms, 
+    b2.dur(5) / ms, 
+    b2.dur(6) / ms, 
+    b2.dur(7) / ms >>> ;
 */
+
