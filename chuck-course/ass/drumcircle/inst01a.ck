@@ -1,6 +1,6 @@
 // Instrument one
 
-50 => int tlen;
+30 => int tlen;
 
 // Setup sound chain
 TriOsc s => ADSR e => NRev rev => Gain master => dac;
@@ -11,14 +11,14 @@ TriOsc s => ADSR e => NRev rev => Gain master => dac;
 Bpm bpm;
 
 // Configure the envelope
-e.set( 25::ms, 8::ms, .9, 15::ms);
+e.set( 5::ms, 8::ms, .9, 100::ms);
 
 // Create a notes object
 Notes n;
 
 // Some global variables
-4 => int upmode;
-6 => int downmode;
+6 => int upmode;
+4 => int downmode;
 1 => int isdirup;
 
 // Exchange up- and downmode
@@ -70,40 +70,18 @@ fun void playNote(int t, int durIndex) {
 
 0 => int t;
 while (t < tlen) {
-  playNote(t, 0); t++;
-  playNote(t, 0); t++;
+  playNote(t, 2); t++;
+  bpm.dur(2) => now;
+  playNote(t, 3); t++;
+  bpm.dur(3) => now;
+  playNote(t, 3); t++;
+  bpm.dur(3) => now;
+  playNote(t, 3); t++;
+  bpm.dur(3) => now;
+  playNote(t, 3); t++;
+  bpm.dur(3) => now;
 
-  playNote(t, 0); t++;
-  playNote(t, 1); t++;
-  playNote(t, 1); t++;
-
-  playNote(t, 0); t++;
-  playNote(t, 0); t++;
-
-  playNote(t, 0); t++;
-  playNote(t, 1); t++;
-  playNote(t, 1); t++;
-
-  playNote(t, 1); t++;
-  playNote(t, 2); t++;
-  playNote(t, 2); t++;
-  playNote(t, 0); t++;
-
-  playNote(t, 1); t++;
-  playNote(t, 2); t++;
-  playNote(t, 2); t++;
-  playNote(t, 0); t++;
-
-  playNote(t, 1); t++;
-  playNote(t, 2); t++;
-  playNote(t, 2); t++;
-  playNote(t, 0); t++;
-
-  playNote(t, 1); t++;
-  playNote(t, 2); t++;
-  playNote(t, 2); t++;
-  playNote(t, 0); t++;
 
 }
 1000::ms => now;
-<<< "stop", "inst01" >>>;
+<<< "stop", "inst01a" >>>;
