@@ -1,4 +1,5 @@
-// All soundfiles in one class
+// Assignment_7_marching_flutes_retreat
+// All soundfiles in one class for easy access
 
 public class Sounds {
 
@@ -23,16 +24,21 @@ public class Sounds {
   me.dir(-1) + "/audio/snare_02.wav",
   me.dir(-1) + "/audio/snare_03.wav"] @=> string files[];
   
+  // Sound chain
   Gain master => dac;
   
+  // Holds the overall gain of an object of that class
   1.0 => float _gain;
   
+  // Set the overall gain
   fun void gain(float value) {
     value => _gain;
   }
   
+  // Index of the currently active buffer
   0 => int instIndex;
   
+  // Initialize the buffers
   SndBuf buffers[files.cap()];
   for (0 => int i; i < files.cap(); i++) {
     buffers[i].read(files[i]);
@@ -40,6 +46,7 @@ public class Sounds {
     buffers[i] => master;
   }
 
+  // Play the context of the file defined by 'instIndex'
   fun void keyOn(float velocity) {
     velocity * _gain => master.gain; 
     0 => buffers[instIndex % files.cap()].pos;   

@@ -4,6 +4,11 @@
 
 // Setup sound chain
 TriOsc s => ADSR e => NRev rev => Gain master => dac;
+
+// Some global variables
+6 => int upmode;
+4 => int downmode;
+1 => int isdirup;
 0.05 => float maxGain;
 0.1 => rev.mix;
 
@@ -16,10 +21,6 @@ e.set( 5::ms, 2::ms, .9, 25::ms);
 // Create a notes object
 Notes n;
 
-// Some global variables
-6 => int upmode;
-4 => int downmode;
-1 => int isdirup;
 
 // Exchange up- and downmode
 fun void exchangeMode() {
@@ -29,6 +30,7 @@ fun void exchangeMode() {
   //<<< "exch", upmode, downmode >>>;
 }
 
+// Calculate some overall envelope for the melody
 fun float gainTrend(int t, int tlen) {
   float re;
   tlen / 4.0 => float t1;
@@ -49,6 +51,9 @@ fun float gainTrend(int t, int tlen) {
   return re;
 }
 
+// Play one note
+// t: the time elapsed as integer
+// durIndex: The duration of the note as index of possible durations
 fun void playNote(int t, int durIndex) {
   gainTrend(t, tlen) => master.gain;
   if (isdirup == 1) n.freq(n.cap() - t % n.cap()) => s.freq;
@@ -58,6 +63,7 @@ fun void playNote(int t, int durIndex) {
   bpm.dur(durIndex) * 0.7 => now;
   e.keyOff();
   bpm.dur(durIndex) * 0.3 => now;
+  // Descide to go one octave up or down
   if (t % upmode == 0 && t % downmode == 0); // nothing to do
   else if (t % upmode == 0 ) n.octup();
   else if (t % downmode == 0 ) n.octdown();
@@ -68,6 +74,7 @@ fun void playNote(int t, int durIndex) {
   }
 }
 
+// The melody
 0 => int t;
 while (t < tlen) {
   playNote(t, 2); t++;
