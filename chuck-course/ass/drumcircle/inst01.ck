@@ -1,15 +1,17 @@
 // Instrument one
 
+100 => int tlen;
+
 // Setup sound chain
 TriOsc s => ADSR e => NRev rev => Gain master => dac;
-0.07 => float maxGain;
+0.05 => float maxGain;
 0.1 => rev.mix;
 
 // Instantiate a BPM class
 Bpm bpm;
 
 // Configure the envelope
-e.set( 20::ms, 8::ms, .9, 100::ms);
+e.set( 5::ms, 8::ms, .9, 100::ms);
 
 // Create a notes object
 Notes n;
@@ -47,17 +49,15 @@ fun float gainTrend(int t, int tlen) {
   return re;
 }
 
-100 => int tlen;
-0 => int t;
-repeat (tlen) {
+fun void playNote(int t, int durIndex) {
   gainTrend(t, tlen) => master.gain;
   if (isdirup == 1) n.freq(n.cap() - t % n.cap()) => s.freq;
   else n.freq(t % n.cap()) => s.freq;
   e.keyOn();
   //<<< "bpm.dur(0)", bpm.dur(0) / ms >>>; 
-  bpm.dur(0) * 0.7 => now;
+  bpm.dur(durIndex) * 0.7 => now;
   e.keyOff();
-  bpm.dur(0) * 0.3 => now;
+  bpm.dur(durIndex) * 0.3 => now;
   if (t % upmode == 0 && t % downmode == 0); // nothing to do
   else if (t % upmode == 0 ) n.octup();
   else if (t % downmode == 0 ) n.octdown();
@@ -66,6 +66,42 @@ repeat (tlen) {
     (isdirup + 1) % 2 => isdirup;
      <<< "change dir",  isdirup >>>;
   }
-  t++;
 }
+
+0 => int t;
+while (t < tlen) {
+  playNote(t, 3); t++;
+  playNote(t, 3); t++;
+  playNote(t, 2); t++;
+  playNote(t, 1); t++;
+
+  playNote(t, 3); t++;
+  playNote(t, 3); t++;
+  playNote(t, 2); t++;
+  playNote(t, 1); t++;
+
+  playNote(t, 3); t++;
+  playNote(t, 3); t++;
+  playNote(t, 3); t++;
+  playNote(t, 3); t++;
+  playNote(t, 2); t++;
+  playNote(t, 2); t++;
+
+  playNote(t, 3); t++;
+  playNote(t, 3); t++;
+  playNote(t, 2); t++;
+  playNote(t, 1); t++;
+
+  playNote(t, 3); t++;
+  playNote(t, 3); t++;
+  playNote(t, 2); t++;
+  playNote(t, 1); t++;
+
+  playNote(t, 3); t++;
+  playNote(t, 3); t++;
+  playNote(t, 2); t++;
+  playNote(t, 1); t++;
+
+}
+1000::ms => now;
 <<< "stop", "inst01" >>>;
