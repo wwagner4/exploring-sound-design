@@ -11,7 +11,7 @@ TriOsc s => ADSR e => NRev rev => Gain master => dac;
 Bpm bpm;
 
 // Configure the envelope
-e.set( 5::ms, 8::ms, .9, 100::ms);
+e.set( 5::ms, 2::ms, .9, 25::ms);
 
 // Create a notes object
 Notes n;
