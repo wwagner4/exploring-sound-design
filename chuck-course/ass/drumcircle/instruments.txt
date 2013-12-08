@@ -1,0 +1,25 @@
+ 0  clap_01
+
+ 1  click_01
+ 2  click_02
+ 3  click_03
+ 4  click_04
+ 5  click_05
+
+ 6  cowbell_01
+
+ 7  hihat_01
+ 8  hihat_02
+ 9  hihat_03
+10  hihat_04
+
+11  kick_01
+12  kick_02
+13  kick_03
+14  kick_04
+15  kick_05 
+
+16  snare_01
+17  snare_02
+18  snare_03
+
