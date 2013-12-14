@@ -25,14 +25,20 @@ public class Sounds {
   me.dir(-1) + "/audio/snare_03.wav"] @=> string files[];
   
   // Sound chain
-  Gain master => dac;
+  Gain master => Pan2 pan2 => dac;
   
   // Holds the overall gain of an object of that class
   1.0 => float _gain;
+  0.0 => float _pan;
   
   // Set the overall gain
   fun void gain(float value) {
     value => _gain;
+  }
+  
+  // Set the overall panning
+  fun void pan(float value) {
+    value => _pan;
   }
   
   // Index of the currently active buffer
@@ -48,7 +54,8 @@ public class Sounds {
 
   // Play the context of the file defined by 'instIndex'
   fun void keyOn(float velocity) {
-    velocity * _gain => master.gain; 
+    velocity * _gain => master.gain;
+    _pan => pan2.pan; 
     0 => buffers[instIndex % files.cap()].pos;   
   }
     

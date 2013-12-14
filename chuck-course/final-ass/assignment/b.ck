@@ -9,6 +9,7 @@ Config config;
 
 // Percussion Instruments
 [1, 2, 3, 5] @=> int percussion[];
+[-0.6, -0.4, 0.4, 0.6] @=> float percPan[];
 [
 // One pattern for each percussion, 
 // length must be meloLen
@@ -31,6 +32,7 @@ Config config;
 Sounds sounds[percussion.cap()];
 for (0=>int i; i<percussion.cap(); i++) {
   percussion[i] => sounds[i].instIndex;
+  percPan[i] => sounds[i].pan;
 }
 
 // Play the beats for one timeslot
@@ -62,12 +64,10 @@ for (0 => int j; j < 3; j++) {
 	}
 }
 // Endphase
-for (0 => int i; i < meloLen * 1; i++ ) {
-	melo(i % meloLen, beats1);
+repeat (12) {
+  for (0 => int i; i < meloLen * 1; i++ ) {
+	  melo(i % meloLen, beats1);
+  }
 }
-for (0 => int i; i < meloLen * 1; i++ ) {
-	melo(i % meloLen, beats1);
-}
-
 now / second => float all;
 <<< "time",  all, "s" >>>;

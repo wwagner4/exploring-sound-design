@@ -120,6 +120,29 @@ for (0 => int j; j < 3; j++) {
 		melo(i % meloLen, melo3, melo3Gain, major, up, 0.2);
 	}
 }
+for (0 => int i; i < meloLen * 1; i++ ) {
+	melo(i % meloLen, melo5, melo5Gain, major, up, 0.2);
+}
+for (0 => int j; j < 3; j++) {
+	Math.random2(1, 2) => meloNr;
+	Math.random2(0, 1) => major;
+	Math.random2(0, 1) => up;
+	if (meloNr == 1) {
+		for (0 => int i; i < meloLen; i++ ) {
+			melo(i % meloLen, melo1, melo1Gain, major, up, 0.2);
+		}
+	} else if (meloNr == 2) {
+		for (0 => int i; i < meloLen; i++ ) {
+			melo(i % meloLen, melo2, melo2Gain, major, up, 0.2);
+		}
+	} 
+	for (0 => int i; i < meloLen; i++ ) {
+		melo(i % meloLen, melo3, melo3Gain, major, up, 0.2);
+	}
+}
+for (0 => int i; i < meloLen * 1; i++ ) {
+	melo(i % meloLen, melo5, melo5Gain, major, up, 0.2);
+}
 // Endphase
 Math.random2(1, 2) => meloNr;
 Math.random2(0, 1) => major;

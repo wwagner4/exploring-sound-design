@@ -6,12 +6,15 @@
 Bpm dur;
 Config c;
 100 => dur.bpm;
-0.9 => c.mainGain;
-0.1 => c.percGain;
-0.3 => c.meloGain;
+0.3 => c.mainGain;
+0.3 => c.percGain;
+0.5 => c.meloGain;
+
+dur.dur(1) * 8 => dur meloDur;
 
 // Start the instruments
-Machine.add(me.dir() + "/a.ck");
 Machine.add(me.dir() + "/b.ck");
+meloDur * 1 => now;
+Machine.add(me.dir() + "/a.ck");
 
 
