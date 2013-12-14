@@ -4,6 +4,7 @@
 <<< "b", "started" >>>;
 
 Bpm dur;
+Config config;
 8 => int meloLen; 
 
 // Percussion Instruments
@@ -36,7 +37,7 @@ for (0=>int i; i<percussion.cap(); i++) {
 fun void setBeat(int k, int beats[][]) {
 	for (0 => int j; j < sounds.cap(); j++) {
 		if (beats[j][k] > 0) {
-			0.5 => sounds[j].keyOn;
+			1.0 * config.mainGain * config.percGain => sounds[j].keyOn;
 		}
 	}
 }

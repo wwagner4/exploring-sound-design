@@ -4,6 +4,7 @@
 <<< "a", "started" >>>;
 
 Bpm dur;
+Config config;
 
 // Midi notes
 [51, 53, 55, 56, 58, 60, 61, 63] @=> int scale[];
@@ -29,16 +30,12 @@ Bpm dur;
 
 // Master gain
 Gain master => dac;
-0.1 => master.gain;
-
-// Master gain for melody
-Gain mmaster => master;
-2.0 => mmaster.gain;
+config.mainGain * config.meloGain => master.gain;
 
 // TriOscs for the melody
 TriOsc oscs[3];
 for (0 => int i; i < oscs.cap(); i++) {
-	oscs[i] => mmaster;
+	oscs[i] => master;
 }
 
 // Play a chord

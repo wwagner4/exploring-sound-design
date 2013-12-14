@@ -4,7 +4,11 @@
 
 // Set the speed in bpm
 Bpm dur;
+Config c;
 100 => dur.bpm;
+0.9 => c.mainGain;
+0.1 => c.percGain;
+0.3 => c.meloGain;
 
 // Start the instruments
 Machine.add(me.dir() + "/a.ck");
