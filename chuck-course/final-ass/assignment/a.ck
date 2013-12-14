@@ -1,37 +1,39 @@
 // Assignmet 4 Function Junction
 // Assignmet_4_African_Accordeon
 
-<<< "", "Assignmet_4_African_Accordeon" >>>;
+<<< "a", "started" >>>;
+
+Bpm dur;
 
 // Midi notes
 [51, 53, 55, 56, 58, 60, 61, 63] @=> int scale[];
 
 // Files available
 [
-me.dir() + "/audio/clap_01.wav", // 0
-me.dir() + "/audio/click_01.wav",
-me.dir() + "/audio/click_02.wav",
-me.dir() + "/audio/click_03.wav",
-me.dir() + "/audio/click_04.wav",
-me.dir() + "/audio/click_05.wav", // 5
-me.dir() + "/audio/cowbell_01.wav",
-me.dir() + "/audio/hihat_01.wav",
-me.dir() + "/audio/hihat_02.wav",
-me.dir() + "/audio/hihat_03.wav",
-me.dir() + "/audio/hihat_04.wav", // 10
-me.dir() + "/audio/kick_01.wav",
-me.dir() + "/audio/kick_02.wav",
-me.dir() + "/audio/kick_03.wav",
-me.dir() + "/audio/kick_04.wav",
-me.dir() + "/audio/kick_05.wav", // 15
-me.dir() + "/audio/snare_01.wav",
-me.dir() + "/audio/snare_02.wav",
-me.dir() + "/audio/snare_03.wav",
-me.dir() + "/audio/stereo_fx_01.wav",
-me.dir() + "/audio/stereo_fx_02.wav", // 20
-me.dir() + "/audio/stereo_fx_03.wav",
-me.dir() + "/audio/stereo_fx_04.wav",
-me.dir() + "/audio/stereo_fx_05.wav"
+me.dir(-1) + "/audio/clap_01.wav", // 0
+me.dir(-1) + "/audio/click_01.wav",
+me.dir(-1) + "/audio/click_02.wav",
+me.dir(-1) + "/audio/click_03.wav",
+me.dir(-1) + "/audio/click_04.wav",
+me.dir(-1) + "/audio/click_05.wav", // 5
+me.dir(-1) + "/audio/cowbell_01.wav",
+me.dir(-1) + "/audio/hihat_01.wav",
+me.dir(-1) + "/audio/hihat_02.wav",
+me.dir(-1) + "/audio/hihat_03.wav",
+me.dir(-1) + "/audio/hihat_04.wav", // 10
+me.dir(-1) + "/audio/kick_01.wav",
+me.dir(-1) + "/audio/kick_02.wav",
+me.dir(-1) + "/audio/kick_03.wav",
+me.dir(-1) + "/audio/kick_04.wav",
+me.dir(-1) + "/audio/kick_05.wav", // 15
+me.dir(-1) + "/audio/snare_01.wav",
+me.dir(-1) + "/audio/snare_02.wav",
+me.dir(-1) + "/audio/snare_03.wav",
+me.dir(-1) + "/audio/stereo_fx_01.wav",
+me.dir(-1) + "/audio/stereo_fx_02.wav", // 20
+me.dir(-1) + "/audio/stereo_fx_03.wav",
+me.dir(-1) + "/audio/stereo_fx_04.wav",
+me.dir(-1) + "/audio/stereo_fx_05.wav"
 ] @=> string files[];
 
 // Length of melody
