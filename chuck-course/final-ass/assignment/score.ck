@@ -8,5 +8,6 @@ Bpm dur;
 
 // Start the instruments
 Machine.add(me.dir() + "/a.ck");
+Machine.add(me.dir() + "/b.ck");
 
 
