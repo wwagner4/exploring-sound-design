@@ -158,7 +158,7 @@ fun void melo(int k, int melo[], float meloGain[], int beats[][],
 	melo[k] => int rnote;
 	playNote(rnote, isMajor, isUp);
 	setBeat(k, beats);
-	envelope(300, meloGain[k], attack);
+	envelope(dur.dur(1) / ms, meloGain[k], attack);
 }
 
 

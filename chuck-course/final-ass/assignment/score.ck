@@ -4,7 +4,7 @@
 
 // Set the speed in bpm
 Bpm dur;
-60 => dur.bpm;
+100 => dur.bpm;
 
 // Start the instruments
 Machine.add(me.dir() + "/a.ck");
