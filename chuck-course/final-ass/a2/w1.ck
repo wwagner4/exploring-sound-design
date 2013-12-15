@@ -41,7 +41,7 @@ public class W1 extends W {
   // dur    dura: The duration the note is played
   // float _gain: The gain the note is played with  
   fun void play(int note, dur dura, float _gain) {
-    <<< "play", note, dura, _gain, Q, _mix >>>;
+    //<<< "play", note, dura, _gain, Q, _mix >>>;
     if (_gain > 0.0001) {
       _mix => rev.mix;
       Q => f.Q;

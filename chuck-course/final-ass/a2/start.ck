@@ -1,6 +1,8 @@
-Machine.add(me.dir() + "/w.ck");
-Machine.add(me.dir() + "/w1.ck");
-Machine.add(me.dir() + "/w2.ck");
+
+Conf c;
+100::ms => c.unit;
 
 Machine.add(me.dir() + "/a.ck");
+c.unit * 16 => now;
+Machine.add(me.dir() + "/b.ck");
 
