@@ -1,4 +1,6 @@
 Machine.add(me.dir() + "/w.ck");
 Machine.add(me.dir() + "/w1.ck");
 
-Machine.add(me.dir() + "/a.ck");
+//Machine.add(me.dir() + "/a.ck");
+Machine.add(me.dir() + "/w1_example.ck");
+

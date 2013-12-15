@@ -1,7 +1,7 @@
 
 [0, 2, 4, 7, 9] @=> int notes[];
 
-50 => int base;
+30 => int base;
 150::ms => dur u;
 
 
