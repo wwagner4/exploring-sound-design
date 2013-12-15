@@ -1,5 +1,4 @@
-
-public class W1 extends Chubgraph {
+public class W1 extends W {
   TriOsc to => HPF f => NRev r1 => ADSR e => NRev r2 => Gain g => outlet;
 
   0.05 => float mix1;
