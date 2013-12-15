@@ -1,7 +1,7 @@
-// Assignmet 4 Function Junction
-// Assignmet_4_African_Accordeon
-
-<<< "a", "started" >>>;
+// Final Project 
+// Final Project 
+// Simplex Music
+<<< "Simplex Music", "Melody" >>>;
 
 Bpm dur;
 Config config;
@@ -32,7 +32,7 @@ Config config;
 Gain master => dac;
 config.mainGain * config.meloGain => master.gain;
 
-// TriOscs for the melody
+// TriOscs and envelopes for the melody
 TriOsc oscs[3];
 ADSR env[3];
 for (0 => int i; i < oscs.cap(); i++) {
@@ -72,9 +72,6 @@ fun void envelope(int i, float dura, float maxGain, float attack) {
     a => now;
     env[i].keyOff();
     b => now;
-}
-fun void envelop1(int i, dur attack, dur a, dur b, float maxGain ) {
-	<<< "envelop1", i >>>;
 }
 
 // Play melody and percussion together

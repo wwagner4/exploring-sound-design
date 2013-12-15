@@ -1,18 +1,21 @@
-// Assignmet 4 Function Junction
-// Assignmet_4_African_Accordeon
+// Final Project 
+// Simplex Music
+<<< "Simplex Music", "percussion" >>>;
 
-<<< "b", "started" >>>;
-
+// Instantiate classes containing static members 
 Bpm dur;
 Config config;
 8 => int meloLen; 
 
 // Percussion Instruments
 [1, 2, 3, 5] @=> int percussion[];
+// Separate panning for each instrument
 [-0.6, -0.4, 0.4, 0.6] @=> float percPan[];
-[
+
 // One pattern for each percussion, 
 // length must be meloLen
+[
+// Main pattern
 [1,0,0,0,1,0,0,0], 
 [1,1,0,0,1,0,0,0], 
 [1,0,1,0,1,0,0,0], 
@@ -20,6 +23,7 @@ Config config;
 ] @=> int beats1[][];
 
 [
+// End pattern
 [1,0,0,0,0,0,0,0], 
 [1,0,0,0,0,0,0,0], 
 [0,0,0,0,0,0,0,0], 
@@ -27,15 +31,14 @@ Config config;
 ] @=> int beats3[][];
 
 [
-// One pattern for each percussion, 
-// length must be meloLen
+// Intermediate pattern
 [1,0,0,0,0,0,1,0], 
 [1,0,0,0,1,1,0,0], 
 [1,0,0,0,1,0,0,0], 
 [1,0,0,1,1,0,0,0]  
 ] @=> int beats2[][];
 
-// SndBuf for percussion
+// Sound instances for each percussion instrument
 Sounds sounds[percussion.cap()];
 for (0=>int i; i<percussion.cap(); i++) {
   percussion[i] => sounds[i].instIndex;
@@ -76,7 +79,8 @@ repeat (14) {
 	  melo(i % meloLen, beats1);
   }
 }
-repeat (4) {
+// Veryendpahse
+repeat (3) {
   for (0 => int i; i < meloLen * 1; i++ ) {
 	  melo(i % meloLen, beats3);
   }

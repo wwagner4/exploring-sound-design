@@ -1,7 +1,8 @@
-// Assignment_7_marching_flutes_retreat
+// Final Project 
+// Simplex Music
+<<< "Simplex Music", "Score" >>>;
 
 // The score file for that piece
-
 // Set the speed in bpm
 Bpm dur;
 Config c;
@@ -10,11 +11,13 @@ Config c;
 0.3 => c.percGain;
 0.7 => c.meloGain;
 
+// Duration of one melody block
 dur.dur(1) * 8 => dur meloDur;
 
-// Start the instruments
+// Start the percussion
 Machine.add(me.dir() + "/b.ck");
 meloDur * 1 => now;
+// Start the melody
 Machine.add(me.dir() + "/a.ck");
 
 

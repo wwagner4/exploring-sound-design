@@ -1,4 +1,6 @@
-// Assignment_7_marching_flutes_retreat
+// Final Project 
+// Simplex Music
+<<< "Simplex Music", "Bpm" >>>;
 
 // Class defining the length of notes
 

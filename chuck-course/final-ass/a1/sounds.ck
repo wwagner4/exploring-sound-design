@@ -1,6 +1,8 @@
-// Assignment_7_marching_flutes_retreat
-// All soundfiles in one class for easy access
+// Final Project 
+// Simplex Music
+<<< "Simplex Music", "Sounds" >>>;
 
+// Class for handling the sound files in an easy way
 public class Sounds {
 
   [
