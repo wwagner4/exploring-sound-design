@@ -2,7 +2,7 @@
 [0, 2, 4, 7, 9] @=> int notes[];
 
 50 => int base;
-250::ms => dur u;
+150::ms => dur u;
 
 
 
@@ -43,8 +43,7 @@ fun void s3(W ugen) {
   pause            (3);
 }
 fun void s4(W ugen) {
-  ugen.play(n(0), d(2), g(5));
-  pause            (2);
+  ugen.play(n(0), d(4), g(5));
 
   pause            (4);
 }
@@ -79,7 +78,7 @@ fun void m2(W ugen) {
   s2(ugen);
   s4(ugen);
 }
-fun void m3(W1 ugen) {
+fun void m3(W ugen) {
   s5(ugen);
   s4(ugen);
   s5(ugen);
@@ -90,29 +89,43 @@ fun void m3(W1 ugen) {
   s3(ugen);
 }
 
-W1 w1 => Gain master => dac;
-0.1 => w1.mix;
+Gain master => dac;
+fun void main(W ugen) {
+  m1(ugen);
+  m2(ugen);
+  m3(ugen);
+  m1(ugen);
+  m3(ugen);
+  m2(ugen);
+  m3(ugen);
+}
+
+
+W1 w1 => master;
+
+0.01 => w1.mix;
 100.0 => w1.Q;
 25 => w1.filterOffsetMidi;
-0.2 => w1.masterGain; 
+0.1 => w1.masterGain; 
 
 0.3 => w1.attack;
 0.3 => w1.decay;
 0.7 => w1.sustain;
 0.2 => w1.release;
 
+W2 w2 => master;
 
-0.5 => master.gain;
-m1(w1);
-m2(w1);
-0.9 => master.gain;
-m3(w1);
-m1(w1);
-0.5 => master.gain;
-m3(w1);
-m2(w1);
-0.1 => master.gain;
-m3(w1);
+0.1 => w2.mix;
+30.0 => w2.Q;
+10 => w2.filterOffsetMidi;
+9.0 => w2.masterGain; 
+
+0.003 => w2.attack;
+0.1 => w2.decay;
+1.0 => w2.sustain;
+0.7 => w2.release;
+
+main(w1);
 
 1500::ms  => now;
 
