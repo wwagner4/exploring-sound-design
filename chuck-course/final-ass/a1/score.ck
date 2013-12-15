@@ -8,7 +8,7 @@ Config c;
 100 => dur.bpm;
 0.3 => c.mainGain;
 0.3 => c.percGain;
-0.5 => c.meloGain;
+0.7 => c.meloGain;
 
 dur.dur(1) * 8 => dur meloDur;
 

@@ -20,6 +20,13 @@ Config config;
 ] @=> int beats1[][];
 
 [
+[1,0,0,0,0,0,0,0], 
+[1,0,0,0,0,0,0,0], 
+[0,0,0,0,0,0,0,0], 
+[1,0,0,1,0,1,1,1]  
+] @=> int beats3[][];
+
+[
 // One pattern for each percussion, 
 // length must be meloLen
 [1,0,0,0,0,0,1,0], 
@@ -64,9 +71,14 @@ for (0 => int j; j < 3; j++) {
 	}
 }
 // Endphase
-repeat (12) {
+repeat (14) {
   for (0 => int i; i < meloLen * 1; i++ ) {
 	  melo(i % meloLen, beats1);
+  }
+}
+repeat (4) {
+  for (0 => int i; i < meloLen * 1; i++ ) {
+	  melo(i % meloLen, beats3);
   }
 }
 now / second => float all;

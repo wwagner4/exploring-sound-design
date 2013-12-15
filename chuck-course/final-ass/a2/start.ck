@@ -1,6 +1,6 @@
 
 Conf c;
-100::ms => c.unit;
+150::ms => c.unit;
 
 Machine.add(me.dir() + "/a.ck");
 c.unit * 16 => now;
