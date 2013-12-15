@@ -1,8 +1,8 @@
 
 [0, 2, 4, 7, 9] @=> int notes[];
 
-30 => int base;
-150::ms => dur u;
+50 => int base;
+250::ms => dur u;
 
 
 
@@ -91,6 +91,16 @@ fun void m3(W1 ugen) {
 }
 
 W1 w1 => Gain master => dac;
+0.1 => w1.mix;
+100.0 => w1.Q;
+25 => w1.filterOffsetMidi;
+0.2 => w1.masterGain; 
+
+0.3 => w1.attack;
+0.3 => w1.decay;
+0.7 => w1.sustain;
+0.2 => w1.release;
+
 
 0.5 => master.gain;
 m1(w1);

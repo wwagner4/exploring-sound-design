@@ -2,7 +2,8 @@ public class W1 extends W {
   SawOsc to => HPF f => NRev rev => ADSR e => Gain g => outlet;
 
   // Mix of the build in NRev 
-  0.001 => float mix;
+  0.001 => float _mix;
+  fun void mix(float value) { value => _mix; }
   
   // Q of the build in filter
   10.0 => float Q;
@@ -40,9 +41,9 @@ public class W1 extends W {
   // dur    dura: The duration the note is played
   // float _gain: The gain the note is played with  
   fun void play(int note, dur dura, float _gain) {
-    //<<< "play", note, dura, _gain, Q >>>;
+    <<< "play", note, dura, _gain, Q, _mix >>>;
     if (_gain > 0.0001) {
-      mix => rev.mix;
+      _mix => rev.mix;
       Q => f.Q;
       _gain * masterGain => g.gain;
       Std.mtof(note + filterOffsetMidi) => f.freq;
@@ -68,14 +69,14 @@ public class W1 extends W {
 
 // W1 w => dac;
 
-// 0.001 => float mix;
-// 10.0 => float Q;
-// 25 => int filterOffsetMidi;
-// 0.2 => float masterGain; 
-// 0.05 => float attack;
-// 0.2 => float decay;
-// 0.8 => float sustain;
-// 0.5 => float release;
+// 0.001 => w.mix;
+// 10.0 => w.Q;
+// 25 => w.filterOffsetMidi;
+// 0.2 => w.masterGain; 
+// 0.05 => w.attack;
+// 0.2 => w.decay;
+// 0.8 => w.sustain;
+// 0.5 => w.release;
  
 // [40, 50, 51, 50, 55, 61, 62, 63, 65, 70] @=> int notes[];
 // [200::ms, 400::ms, 200::ms, 800::ms, 100::ms, 100::ms] @=> dur durs[];
